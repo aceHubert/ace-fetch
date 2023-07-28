@@ -1,0 +1,61 @@
+{
+  "name": "@ace-fetch/cross-fetch",
+  "version": "0.1.0-alpha.0",
+  "author": "Hubert<yi.xiang@live.com>",
+  "description": "Axios adapter for Ajax.",
+  "main": "lib/index.js",
+  "umd:main": "dist/fetch-cross-fetch.umd.production.js",
+  "module": "esm/index.js",
+  "unpkg": "dist/fetch-cross-fetch.umd.production.js",
+  "jsdelivr": "dist/fetch-cross-fetch.umd.production.js",
+  "typings": "types/index.d.ts",
+  "keywords": [
+    "vue",
+    "ace-fetch",
+    "fetch",
+    "cross-fetch",
+    "microfront"
+  ],
+  "files": [
+    "dist",
+    "lib",
+    "esm"
+  ],
+  "scripts": {
+    "serve:playground": "nuxi dev playground  --port 7005",
+    "serve": "concurrently --raw \"tsc --project tsconfig.build.json --module es2015 --declaration --declarationDir types --outDir esm -watch\" \"yarn serve:playground\"",
+    "prebuild": "node -p \"'export const version: string = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
+    "build": "rimraf -rf lib esm dist && yarn build:cjs && yarn build:esm && yarn build:umd",
+    "build:cjs": "tsc --project tsconfig.build.json",
+    "build:esm": "tsc --project tsconfig.build.json --module es2015 --outDir esm",
+    "build:umd": "rollup --config",
+    "build:copy-dts": "copyfiles -u 1 src/**/*.d.ts types",
+    "lint": "eslint . --cache --report-unused-disable-directives --ignore-path=../../.eslintignore",
+    "lint:fix": "eslint . --cache --fix --ignore-path=../../.eslintignore"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aceHubert/ace-fetch.git",
+    "directory": "packages/cross-fetch"
+  },
+  "bugs": {
+    "url": "https://github.com/aceHubert/vus-async/issues"
+  },
+  "dependencies": {
+    "warning": "^4.0.3"
+  },
+  "devDependencies": {
+    "@types/warning": "^3.0.0",
+    "@ace-fetch/core": "^0.1.0",
+    "cross-fetch": "^3.1.5",
+    "nuxt": "~3.0.0-rc.0"
+  },
+  "peerDependencies": {
+    "@ace-fetch/core": "^0.1.0",
+    "cross-fetch": "^3.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

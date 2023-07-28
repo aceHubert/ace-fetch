@@ -1,0 +1,32 @@
+{
+  "packages": ["packages/*", "docs"],
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "command": {
+    "publish": {
+      "conventionalCommits": true,
+      "gitTagVersion": true,
+      "gitReset": true,
+      "allowBranch": ["master", "next"],
+      "ignoreChanges": [
+        "**/CHANGELOG.md",
+        "**/node_modules/**",
+        "**/package.json",
+        "**/*.md",
+        "**/test/**",
+        "**/dev/**"
+      ],
+      "message": "chore(release): 😊 publish"
+    }
+  },
+  "version": "independent",
+  "changelog": {
+    "repo": "aceHubert/ace-fetch",
+    "labels": {
+      "feat": ":rocket: New Feature",
+      "bug": ":bug: Bug Fix",
+      "breaking": ":boom: Breaking Change"
+    },
+    "cacheDir": ".changelog"
+  }
+}
