@@ -30,6 +30,7 @@
       "path": "./node_modules/cz-lerna-changelog"
     }
   },
+  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.9.0",
     "@babel/core": "^7.9.0",
