@@ -75,17 +75,16 @@
   },
   "exclude": [
     "node_modules",
+    "docs",
     "**/*.spec.ts",
     "**/*.spec.js",
-    "**/dist/",
+    "**/dist",
+    "**/lib",
+    "**/es",
+    "**/esm",
+    "**/typings",
+    "**/test",
+    "**/tests",
     "**/__test__",
-    "dist",
-    "lib",
-    "es",
-    "esm",
-    "typings",
-    "test",
-    "docs",
-    "tests"
   ]
 }

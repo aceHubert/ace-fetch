@@ -1,6 +1,6 @@
 {
   "name": "@ace-fetch/vue",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Hubert<yi.xiang@live.com>",
   "description": "vue adapter for @ace-fetch/core.",
   "main": "lib/index.js",
