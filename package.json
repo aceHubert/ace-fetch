@@ -11,7 +11,7 @@
     "postinstall": "vue-demi-fix",
     "serve:mock": "nodemon --delay 1 --watch mock-data/apis mock-data/server.js",
     "build": "lerna run build --sort --stream --scope=@ace-fetch/*",
-    "test": "jest --coverage",
+    "test": "jest --coverage --passWithNoTests",
     "test:utils": "jest packages/utils/",
     "prepublishOnly": "yarn install --ignore-scripts && yarn changelog && yarn build && yarn test",
     "release": "lerna publish",
