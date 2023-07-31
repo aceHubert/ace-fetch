@@ -1,4 +1,4 @@
-import { Fetch } from './rootFetch';
+import { Fetch } from '../types';
 
 // Extensions of Vue types to be appended manually
 // https://github.com/microsoft/rushstack/issues/2090
