@@ -94,6 +94,9 @@ type OptionsInPlugin<O extends Record<string, any>> = {
 } & O;
 
 export interface RegisterPluginContext<C extends Record<string, MethodUrl> = any> {
+  /**
+   * regist api
+   */
   registApis: RegistApi<C>;
 }
 
