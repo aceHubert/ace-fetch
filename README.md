@@ -32,7 +32,7 @@
 
 <strong>注意</strong>
 
-`pr`的`label`并不能随意设置，一定要在项目中声明对应才生效。   
+1、`pr`的`label`并不能随意设置，一定要在项目中声明对应才生效。   
 官方默认支持`breaking`/`enhancement`/`bug`/`documentation`/`internal`，如果想用其他，则需要在package.json中进行相应的配置。  
 ``` json
 {
@@ -47,6 +47,7 @@
   }
 }
 ```
+2、src/version 在 publish 时自动更新版本号，不需要手动修改。发布后不需要签入。
 
 <br>
 
