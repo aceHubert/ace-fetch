@@ -11,7 +11,6 @@
     "serve:mock": "nodemon --delay 1 --watch mock-data/apis mock-data/server.js",
     "build": "lerna run build --sort --stream --scope=@ace-fetch/*",
     "test": "jest --coverage --passWithNoTests",
-    "test:utils": "jest packages/utils/",
     "prepublishOnly": "yarn install --ignore-scripts && yarn changelog && yarn build && yarn test",
     "release": "lerna publish",
     "release:git": "lerna publish form-git",
@@ -24,19 +23,14 @@
     "changelog": "node ./scripts/genChangelog.js",
     "commit": "git-cz"
   },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-lerna-changelog"
-    }
-  },
   "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.9.0",
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-typescript": "^7.16.7",
-    "@commitlint/cli": "^8.3.4",
-    "@commitlint/config-conventional": "^8.3.4",
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
     "@rollup/plugin-babel": "^5.0.0",
     "@rollup/plugin-commonjs": "^11.1.0",
     "@rollup/plugin-json": "^4.0.2",
@@ -66,7 +60,6 @@
     "express": "^4.17.1",
     "fs-extra": "^10.1.0",
     "glob-gitignore": "^1.0.14",
-    "husky": ">=1",
     "jest": "^26.0.0",
     "jest-dom": "^3.1.2",
     "lerna": "^3.20.2",
@@ -89,18 +82,21 @@
     "ts-jest": "^26.0.0",
     "ts-loader": "^8.0.3",
     "ts-node": "^10.7.0",
-    "ttypescript": "^1.5.13",
     "typescript": "^4.1.5",
-    "util": "^0.12.1"
+    "util": "^0.12.1",
+    "yorkie": "^2.0.0"
   },
   "resolutions": {
     "typescript": "~4.6.x"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && yarn test",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-lerna-changelog"
     }
+  },
+  "gitHooks": {
+    "commit-msg": "commitlint -e -V",
+    "pre-commit": "lint-staged"
   },
   "workspaces": {
     "packages": [
