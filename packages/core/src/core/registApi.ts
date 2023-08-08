@@ -152,7 +152,7 @@ function transfromToRequest(
   id?: string,
 ): RequestDefinition<MethodUrl> {
   return (config: Partial<RequestConfig> = {}) => {
-    let { requestType = 'json' } = config;
+    let { requestType, ...requestConfig } = config;
 
     // method url 置换
     let methodConfig = methodUrl as string | [Partial<RequestConfig>, string];
@@ -165,10 +165,12 @@ function transfromToRequest(
         delete config.params[key];
       });
     }
-    let reqConfig = config;
+
     if (Array.isArray(methodConfig)) {
-      const [cusConfig, methodPath] = methodConfig;
-      reqConfig = { ...reqConfig, ...cusConfig };
+      const [{ requestType: presetRequestType, ...presetConfig }, methodPath] = methodConfig;
+      // 最终的 config 优先，通过 typedUrl 预定义的 config 其次
+      requestConfig = { ...presetConfig, ...requestConfig };
+      requestType = requestType ?? presetRequestType;
       methodConfig = methodPath;
     }
 
@@ -181,19 +183,16 @@ function transfromToRequest(
     // 拼接 prefix (处理prefix 末尾以及 urlPath 开始 / 的重复)
     const url =
       (prefix.endsWith('/') ? prefix : `${prefix}/`) + (urlPath.startsWith('/') ? urlPath.substring(1) : urlPath);
-    reqConfig.method = method as Method;
-    // getLike 请求把data 参数当成 params 传递
-    // const isGetLike = ['get', 'delete', 'head', 'options'].includes(method);
-    // reqConfig.params = isGetLike ? { ...reqConfig.data, ...reqConfig.params } : reqConfig.params;
+    requestConfig.method = method as Method;
     // headers 默认值设置
-    reqConfig.headers = {
-      ...(REQUEST_HEADERS[requestType] || {}),
-      ...(reqConfig.headers || {}),
+    requestConfig.headers = {
+      ...(REQUEST_HEADERS[requestType || 'json'] || {}),
+      ...(requestConfig.headers || {}),
     };
 
     // 标记为通过 registApi 注册
-    reqConfig._registId = id;
+    requestConfig._registId = id;
 
-    return request(url, reqConfig);
+    return request(url, requestConfig);
   };
 }
