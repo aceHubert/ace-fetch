@@ -1,4 +1,4 @@
-import warning from 'warning';
+import { warn } from '@ace-util/core';
 import axios from 'axios';
 import { debug } from '../env';
 
@@ -9,7 +9,7 @@ import type { CatchErrorOptions } from '../types';
 
 const defaultOptions: CatchErrorOptions = {
   handler: (error) => {
-    warning(
+    warn(
       !debug,
       `Error is catched by default handler, Error message: ${error instanceof Error ? error.message : error}`,
     );
@@ -46,14 +46,14 @@ export function applyCatchError(axiosInstance: AxiosInstance, options: CatchErro
   const curOptions = { ...defaultOptions, ...options };
   axiosInstance.interceptors.request.use(undefined, (error) => {
     if (!isAxiosError(error)) {
-      warning(!debug, `catchError needs "AxiosError.config", please do not chage format from interceptors return!`);
+      warn(!debug, `catchError needs "AxiosError.config", please do not chage format from interceptors return!`);
       return Promise.reject(error);
     } else if (isCancelError(error)) {
-      warning(!debug, `catchError won't handle axios cancel error!`);
+      warn(!debug, `catchError won't handle axios cancel error!`);
       return Promise.reject(error);
     }
 
-    warning(
+    warn(
       !debug && !!error.config,
       `catchError needs "AxiosError.config", it will throw error in production!
       `,
@@ -64,7 +64,7 @@ export function applyCatchError(axiosInstance: AxiosInstance, options: CatchErro
   axiosInstance.interceptors.response.use(
     (response) => {
       if (!response?.config) {
-        warning(!debug, `catchError needs "response.config", please do not chage format from interceptors return! `);
+        warn(!debug, `catchError needs "response.config", please do not chage format from interceptors return! `);
         return response;
       }
 
@@ -96,15 +96,15 @@ export function applyCatchError(axiosInstance: AxiosInstance, options: CatchErro
     },
     (error) => {
       if (!isAxiosError(error)) {
-        warning(!debug, `catchError needs "AxiosError.config", please do not chage format from interceptors return!`);
+        warn(!debug, `catchError needs "AxiosError.config", please do not chage format from interceptors return!`);
         return Promise.reject(error);
       } else if (isCancelError(error)) {
-        warning(!debug, `catchError won't handle axios cancel error!`);
+        warn(!debug, `catchError won't handle axios cancel error!`);
         return Promise.reject(error);
       }
 
       debug &&
-        warning(
+        warn(
           !!error.config,
           `catchError needs "AxiosError.config", it will throw error in production!
         `,

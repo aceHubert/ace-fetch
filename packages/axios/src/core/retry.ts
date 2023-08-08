@@ -1,4 +1,4 @@
-import warning from 'warning';
+import { warn } from '@ace-util/core';
 import axios from 'axios';
 import { debug } from '../env';
 
@@ -46,7 +46,7 @@ function retryHandler(
       // formula(2 ^ c - 1 / 2) * 1000(for mS to seconds)
       const backoff = new Promise(function (resolve) {
         const backOffDelay = curOptions.delay ? (1 / 2) * (Math.pow(2, config[RetryCountSymbol]!) - 1) * 1000 : 1;
-        warning(!debug, `${config.url}: retry delay ${backOffDelay}ms`);
+        warn(!debug, `${config.url}: retry delay ${backOffDelay}ms`);
         setTimeout(function () {
           resolve(null);
         }, backOffDelay);
@@ -54,7 +54,7 @@ function retryHandler(
 
       // Return the promise in which recalls axios to retry the request
       return backoff.then(function () {
-        warning(!debug, `${config.url}: retry ${config[RetryCountSymbol]} time(s)`);
+        warn(!debug, `${config.url}: retry ${config[RetryCountSymbol]} time(s)`);
         return retryRequest(config);
       });
     }
@@ -74,14 +74,14 @@ export function applyRetry(axiosInstance: AxiosInstance, options: RetryOptions) 
   const curOptions = { ...defaultOptions, ...options };
   axiosInstance.interceptors.request.use(undefined, (error) => {
     if (!isAxiosError(error)) {
-      warning(!debug, `retry needs "AxiosError.config", please do not chage format from interceptors return!`);
+      warn(!debug, `retry needs "AxiosError.config", please do not chage format from interceptors return!`);
       return Promise.reject(error);
     } else if (isCancelError(error)) {
-      warning(!debug, `retry won't handle axios cancel error!`);
+      warn(!debug, `retry won't handle axios cancel error!`);
       return Promise.reject(error);
     }
 
-    warning(
+    warn(
       !debug && !!error.config,
       `retry needs "AxiosError.config", it will throw error in production!
       `,
@@ -91,15 +91,15 @@ export function applyRetry(axiosInstance: AxiosInstance, options: RetryOptions) 
   });
   axiosInstance.interceptors.response.use(undefined, (error) => {
     if (!isAxiosError(error)) {
-      warning(!debug, `retry needs "AxiosError.config", please do not chage format from interceptors return!`);
+      warn(!debug, `retry needs "AxiosError.config", please do not chage format from interceptors return!`);
       return Promise.reject(error);
     } else if (isCancelError(error)) {
-      warning(!debug, `retry won't handle axios cancel error!`);
+      warn(!debug, `retry won't handle axios cancel error!`);
       return Promise.reject(error);
     }
 
     debug &&
-      warning(
+      warn(
         !!error.config,
         `retry needs "AxiosError.config", it will throw error in production!
       `,
