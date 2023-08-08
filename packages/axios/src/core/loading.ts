@@ -1,4 +1,4 @@
-import warning from 'warning';
+import { warn } from '@ace-util/core';
 import axios from 'axios';
 import { debug } from '../env';
 
@@ -69,7 +69,7 @@ export function applyLoading(axiosInstance: AxiosInstance, options: LoadingOptio
   axiosInstance.interceptors.response.use(
     (response) => {
       if (!response?.config) {
-        warning(!debug, `loading needs "response.config", please do not chage format from interceptors return! `);
+        warn(!debug, `loading needs "response.config", please do not chage format from interceptors return! `);
         return response;
       }
 
@@ -79,15 +79,15 @@ export function applyLoading(axiosInstance: AxiosInstance, options: LoadingOptio
     },
     (error) => {
       if (!isAxiosError(error)) {
-        warning(!debug, `loading needs "AxiosError.config", please do not chage format from interceptors return!`);
+        warn(!debug, `loading needs "AxiosError.config", please do not chage format from interceptors return!`);
         return Promise.reject(error);
       } else if (isCancelError(error)) {
-        warning(!debug, `loading won't handle axios cancel error!`);
+        warn(!debug, `loading won't handle axios cancel error!`);
         return Promise.reject(error);
       }
 
       debug &&
-        warning(
+        warn(
           !!error.config,
           `loading needs "AxiosError.config", it will throw error in production!
         `,
