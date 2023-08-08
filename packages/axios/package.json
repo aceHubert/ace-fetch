@@ -1,6 +1,6 @@
 {
   "name": "@ace-fetch/axios",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Hubert<yi.xiang@live.com>",
   "description": "axios adapter for @ace-fetch/core.",
   "main": "lib/index.js",
@@ -59,12 +59,12 @@
     "url": "https://github.com/aceHubert/vus-async/issues"
   },
   "dependencies": {
-    "@ace-fetch/core": "^0.1.0",
+    "@ace-fetch/core": "^0.1.1",
     "warning": "^4.0.3"
   },
   "devDependencies": {
+    "@ace-fetch/vue": "^0.1.3",
     "@types/warning": "^3.0.0",
-    "@ace-fetch/vue": "^0.1.0",
     "axios": "^0.27.1",
     "nuxt": "~3.0.0-rc.0"
   },
