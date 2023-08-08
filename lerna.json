@@ -1,5 +1,8 @@
 {
-  "packages": ["packages/*", "docs"],
+  "packages": [
+    "packages/*",
+    "docs"
+  ],
   "npmClient": "yarn",
   "useWorkspaces": true,
   "command": {
@@ -7,7 +10,10 @@
       "conventionalCommits": true,
       "gitTagVersion": true,
       "gitReset": true,
-      "allowBranch": ["master", "next"],
+      "allowBranch": [
+        "master",
+        "next"
+      ],
       "ignoreChanges": [
         "**/CHANGELOG.md",
         "**/node_modules/**",
@@ -19,7 +25,7 @@
       "message": "chore(release): 😊 publish"
     }
   },
-  "version": "0.1.3",
+  "version": "0.2.0",
   "changelog": {
     "repo": "aceHubert/ace-fetch",
     "labels": {
