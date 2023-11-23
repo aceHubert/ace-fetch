@@ -34,7 +34,6 @@
     "esm"
   ],
   "scripts": {
-    "postinstall": "vue-demi-fix",
     "serve:playground": "nuxi dev playground --port 7004",
     "serve": "concurrently --raw \"tsc --project tsconfig.build.json --module es2015 --declaration --declarationDir types --outDir esm -watch\" \"yarn serve:playground\"",
     "prebuild": "node -p \"'export const version: string = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
