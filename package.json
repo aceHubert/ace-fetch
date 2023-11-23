@@ -8,6 +8,7 @@
     "url": "https://github.com/aceHubert/ace-fetch.git"
   },
   "scripts": {
+    "postinstall": "vue-demi-fix",
     "serve:mock": "nodemon --delay 1 --watch mock-data/apis mock-data/server.js",
     "build": "lerna run build --sort --stream --scope=@ace-fetch/*",
     "test": "jest --coverage --passWithNoTests",
