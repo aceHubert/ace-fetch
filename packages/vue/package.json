@@ -1,6 +1,6 @@
 {
   "name": "@ace-fetch/vue",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Hubert<yi.xiang@live.com>",
   "description": "vue adapter for @ace-fetch/core.",
   "main": "lib/index.js",
@@ -69,7 +69,7 @@
     "vue-demi": "^*"
   },
   "devDependencies": {
-    "@ace-fetch/core": "^0.2.0",
+    "@ace-fetch/core": "^0.2.2",
     "axios": "^0.27.1",
     "nuxt": "~3.0.0-rc.0"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@ace-fetch/axios",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Hubert<yi.xiang@live.com>",
   "description": "axios adapter for @ace-fetch/core.",
   "main": "lib/index.js",
@@ -68,8 +68,8 @@
     "@ace-util/core": "^0.1.1"
   },
   "devDependencies": {
-    "@ace-fetch/core": "^0.2.0",
-    "@ace-fetch/vue": "^0.2.0",
+    "@ace-fetch/core": "^0.2.2",
+    "@ace-fetch/vue": "^0.2.2",
     "axios": "^0.27.1",
     "nuxt": "~3.0.0-rc.0"
   },
