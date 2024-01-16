@@ -14,7 +14,7 @@
     "test": "jest --coverage --passWithNoTests",
     "prepublishOnly": "yarn install --ignore-scripts && yarn changelog && yarn build && yarn test",
     "release": "lerna publish",
-    "release:git": "lerna publish form-git",
+    "release:git": "lerna publish from-git",
     "release:package": "lerna publish from-package",
     "clean": "lerna clean --yes",
     "lint": "lerna run lint --parallel --stream",
