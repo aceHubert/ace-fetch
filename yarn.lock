@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@ace-util/core@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/@ace-util/core/-/core-0.1.0.tgz#b65441b0de4d2e1fe4a16b256dff468a8401417b"
-  integrity sha512-Bge1+VmTM174J2DjnWBeCqQRQMmf5mTXFKtJ5XLnQzXsdQix3H3uRA9rl92OBeFg5z7DDC2efOCYFp+EC7AAag==
+"@ace-util/core@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/@ace-util/core/-/core-0.1.1.tgz#507d32c0f42c97ffea37e781614859e6512d6bc2"
+  integrity sha512-5V9dPyK83I47x4Rx9f8FWy0Xy0kx2zfEcqwY8PQXZZOEVcU0EDGrLPicok35+9DCPGTxgkUa/nlQwDVrQLklWA==
   dependencies:
     lodash.get "^4.4.2"
 
