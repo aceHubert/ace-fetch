@@ -144,7 +144,7 @@ export function registCatchError<Request extends (config: any) => FetchPromise<a
  * @internal
  */
 declare module 'axios' {
-  export interface AxiosStatic {
+  interface AxiosStatic {
     AxiosError: typeof AxiosError;
   }
 }

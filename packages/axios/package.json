@@ -5,9 +5,9 @@
   "description": "axios adapter for @ace-fetch/core.",
   "main": "lib/index.js",
   "module": "esm/index.js",
-  "umd:main": "dist/fetch-axios.umd.production.js",
-  "unpkg": "dist/fetch-axios.umd.production.js",
-  "jsdelivr": "dist/fetch-axios.umd.production.js",
+  "umd:main": "dist/index.umd.production.js",
+  "unpkg": "dist/index.umd.production.js",
+  "jsdelivr": "dist/index.umd.production.js",
   "exports": {
     ".": {
       "import": "./esm/index.js",

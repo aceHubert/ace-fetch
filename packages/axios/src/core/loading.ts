@@ -149,7 +149,7 @@ export function registLoading<Request extends (config: any) => FetchPromise<any>
  * @internal
  */
 declare module '@ace-fetch/core' {
-  export interface RequestConfig {
+  interface RequestConfig {
     [StopLoadingFnSymbol]?: typeof ResponseFinishedSymbol | ReturnType<LoadingHandler>;
   }
 }
