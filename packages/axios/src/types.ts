@@ -1,30 +1,6 @@
 import type { AxiosRequestConfig } from 'axios';
 import type { RegistApi, MethodUrl } from '@ace-fetch/core';
 
-declare module '@ace-fetch/core' {
-  export interface RequestConfig<D = any> extends AxiosRequestConfig<D> {
-    /**
-     * enable catch error
-     * or catch error by Promise.catch locally
-     * @default false
-     */
-    catchError?: boolean;
-
-    /**
-     * enable loading
-     * or custom loading handler/options
-     * @default false
-     */
-    loading?: boolean | LoadingHandler | Required<LoadingOptions>;
-    /**
-     * enable retry
-     * or custom retry options
-     * @default false
-     */
-    retry?: boolean | RetryOptions;
-  }
-}
-
 /**
  * catch error options
  */
@@ -105,4 +81,28 @@ export interface RegisterPluginContext<C extends Record<string, MethodUrl> = any
  */
 export interface PluginDefinition<O extends Record<string, any>> {
   (options?: OptionsInPlugin<O>): (context: RegisterPluginContext) => any;
+}
+
+declare module '@ace-fetch/core' {
+  interface RequestConfig<D = any> extends AxiosRequestConfig<D> {
+    /**
+     * enable catch error
+     * or catch error by Promise.catch locally
+     * @default false
+     */
+    catchError?: boolean;
+
+    /**
+     * enable loading
+     * or custom loading handler/options
+     * @default false
+     */
+    loading?: boolean | LoadingHandler | Required<LoadingOptions>;
+    /**
+     * enable retry
+     * or custom retry options
+     * @default false
+     */
+    retry?: boolean | RetryOptions;
+  }
 }

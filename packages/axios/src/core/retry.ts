@@ -132,7 +132,7 @@ export function registRetry<Request extends (config: any) => FetchPromise<any>>(
  * @internal
  */
 declare module '@ace-fetch/core' {
-  export interface RequestConfig {
+  interface RequestConfig {
     [RetryCountSymbol]?: number;
   }
 }
