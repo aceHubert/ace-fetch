@@ -87,9 +87,9 @@ import { createCatchErrorPlugin, createLoadingPlugin, createRetryPlugin } from '
 
 const axiosInstance = axios.create({});
 
-const fetch = createFetch(axiosInstance);
+const afetch = createFetch(axiosInstance);
 
-fetch.use(
+afetch.use(
   createCatchErrorPlugin({
     // 当接口通过body返回异常消息，可通过此方法判断
     // 注意：如果有全局自定义 interceptors，在 request 中不能改变返回的类型，data 参数为 AxiosResponse data 参数
@@ -109,7 +109,7 @@ fetch.use(
   })
 )
 
-fetch.use(
+afetch.use(
   createLoadingPlugin({
     delay: 260, // 延迟显示，如果接口在设置时间内返回则不调用handler方法
     handler: () => {
@@ -122,7 +122,7 @@ fetch.use(
   })
 )
 
-fetch.use(
+afetch.use(
   createRetryPlugin({
      maxCount: 3, // 重试次数
      delay: true, // 重试延迟
@@ -157,7 +157,7 @@ useApi.getUser({
 });
 
 // fetch.client 指向是 axiosInstance
-fetch.client.get('/user', {
+afetch.client.get('/user', {
   // loading 不生效
   loading: true,
 });
@@ -165,6 +165,6 @@ fetch.client.get('/user', {
 
 // 在Vue中使用请查看"@ace-fetch/vue"文档
 const app = createApp({});
-app.use(fetch);
+app.use(afetch);
 app.mount('#app');
 ```
