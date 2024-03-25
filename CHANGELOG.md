@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/aceHubert/ace-fetch/compare/v0.2.2...v0.3.0) (2024-03-25)
+
+
+### Bug Fixes
+
+* package.json change & type change ([560748b](https://github.com/aceHubert/ace-fetch/commit/560748b5e1a3b3e6eaa157719fb1070f72a030df))
+
+
+### Features
+
+* add uniapp package ([7fe871a](https://github.com/aceHubert/ace-fetch/commit/7fe871aa7c60772f7c96cb1162ea7b01881ee6f5))
+
+
+
+
+
 ## [0.2.2](https://github.com/aceHubert/ace-fetch/compare/v0.2.0...v0.2.2) (2024-01-16)
 
 **Note:** Version bump only for package root

@@ -1,6 +1,6 @@
 {
   "name": "@ace-fetch/uni-app",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "author": "Hubert<yi.xiang@live.com>",
   "description": "uni-app adapter for @ace-fetch/core.",
   "main": "lib/index.js",
@@ -68,8 +68,8 @@
     "@ace-util/core": "^0.1.1"
   },
   "devDependencies": {
-    "@ace-fetch/core": "^0.2.2",
-    "@ace-fetch/vue": "^0.2.2",
+    "@ace-fetch/core": "^0.3.0",
+    "@ace-fetch/vue": "^0.3.0",
     "@dcloudio/types": "^3.4.8",
     "nuxt": "~3.0.0-rc.0"
   },
