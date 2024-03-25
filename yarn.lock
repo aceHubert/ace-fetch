@@ -1188,6 +1188,11 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
+"@dcloudio/types@^3.4.8":
+  version "3.4.8"
+  resolved "https://registry.npmjs.org/@dcloudio/types/-/types-3.4.8.tgz#97eab3fde7e8a55c11a7f4422f2f9bf0efb4d49c"
+  integrity sha512-IPXuoghLv7qNPOnRuP7vC5++MdRHhE0U7EMw9ia//uOh69fFXZiRTfoHd51+nzciD6R50gqYhbrCCZIxnxhM9Q==
+
 "@evocateur/libnpmaccess@^3.1.2":
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/@evocateur/libnpmaccess/-/libnpmaccess-3.1.2.tgz#ecf7f6ce6b004e9f942b098d92200be4a4b1c845"

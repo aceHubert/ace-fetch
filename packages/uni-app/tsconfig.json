@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    // "baseUrl": ".",
+    "skipLibCheck": true,
+    "lib": ["ESNext", "DOM"],
+    "types": ["@types/node", "@dcloudio/types"]
+  },
+  "include": ["src/**/*.ts"]
+}

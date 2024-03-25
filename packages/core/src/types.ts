@@ -65,9 +65,6 @@ export interface FetchPromise<T = any> extends Promise<Response<T>> {}
  * fetch client
  */
 export interface FetchClient {
-  (config: RequestConfig): FetchPromise;
-  (url: string, config?: RequestConfig): FetchPromise;
-
   request<T = any, R = Response<T>>(config: RequestConfig): Promise<R>;
   get<T = any, R = Response<T>>(url: string, config?: RequestConfig): Promise<R>;
   delete<T = any, R = Response<T>>(url: string, config?: RequestConfig): Promise<R>;

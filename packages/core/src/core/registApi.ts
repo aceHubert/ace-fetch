@@ -108,7 +108,7 @@ export function registApi<C extends Record<string, MethodUrl>>(
   const result = {} as RegistApi<C>;
   Object.keys(apis).forEach((methodName) => {
     const methodUrl = apis[methodName];
-    result[methodName as keyof C] = transfromToRequest(client, methodUrl, prefix, id) as any;
+    result[methodName as keyof C] = transfromToRequest(client.request.bind(client), methodUrl, prefix, id) as any;
   });
   return result;
 }
@@ -146,7 +146,7 @@ function quoteProxy(obj: Record<string, any>, keys: string[] = []) {
  * @returns request definition
  */
 function transfromToRequest(
-  request: (url: string, config?: RequestConfig) => FetchPromise,
+  request: (config: RequestConfig) => FetchPromise,
   methodUrl: MethodUrl,
   prefix = '',
   id?: string,
@@ -183,6 +183,7 @@ function transfromToRequest(
     // 拼接 prefix (处理prefix 末尾以及 urlPath 开始 / 的重复)
     const url =
       (prefix.endsWith('/') ? prefix : `${prefix}/`) + (urlPath.startsWith('/') ? urlPath.substring(1) : urlPath);
+    requestConfig.url = url;
     requestConfig.method = method as Method;
     // headers 默认值设置
     requestConfig.headers = {
@@ -193,6 +194,6 @@ function transfromToRequest(
     // 标记为通过 registApi 注册
     requestConfig._registId = id;
 
-    return request(url, requestConfig);
+    return request(requestConfig);
   };
 }
