@@ -51,7 +51,7 @@ __metadata:
     "@ace-util/core": ^0.1.1
     axios: ^0.27.1
     nuxt: ~3.0.0-rc.0
-    vue-demi: ^*
+    vue-demi: "*"
   peerDependencies:
     "@ace-fetch/core": ^0.1.0
     vue: ^2.6.0 || ^3.0.0
@@ -18679,9 +18679,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-demi@npm:^*":
-  version: 0.13.4
-  resolution: "vue-demi@npm:0.13.4"
+"vue-demi@npm:*":
+  version: 0.14.8
+  resolution: "vue-demi@npm:0.14.8"
   peerDependencies:
     "@vue/composition-api": ^1.0.0-rc.1
     vue: ^3.0.0-0 || ^2.6.0
@@ -18691,7 +18691,7 @@ __metadata:
   bin:
     vue-demi-fix: bin/vue-demi-fix.js
     vue-demi-switch: bin/vue-demi-switch.js
-  checksum: f6279d76ea215c3bce362317982fadcb6e6308d1c3461669599af257c166e31b2f377ff4d9b1349d6c82519d5eae5cd804bdc8e53f18d3d189b6d6bfcc5e8298
+  checksum: e9ac4fd09dc1846cf840de34dc335dba810e5d47a488e66abc14102013ff2b2c13a4aa34c5f398a7c5e1ee1a40d0d52ef3901242487579f8caa0b410e8c7f4fb
   languageName: node
   linkType: hard
 
