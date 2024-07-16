@@ -1,3 +1,5 @@
+import URLSearchParams from '@ungap/url-search-params';
+
 // Types
 import type { RequestConfig, Response } from '@ace-fetch/core';
 
