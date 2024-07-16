@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/aceHubert/ace-fetch/compare/v0.3.0...v0.3.1) (2024-07-16)
+
+
+### Bug Fixes
+
+* polyfill URLSearchParams  in uniapp ([2108c68](https://github.com/aceHubert/ace-fetch/commit/2108c68d0d2aea3ad8a8aa1f529a5245b28ac0cd))
+
+
+### Performance Improvements
+
+* use vue-demi: * ([2b9ea01](https://github.com/aceHubert/ace-fetch/commit/2b9ea0124aa508ea90450d66f318cf542e04a2de))
+
+
+
+
+
 # [0.3.0](https://github.com/aceHubert/ace-fetch/compare/v0.2.2...v0.3.0) (2024-03-25)
 
 
