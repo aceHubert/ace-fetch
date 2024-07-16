@@ -11,7 +11,7 @@
     "serve:mock": "nodemon --delay 1 --watch mock-data/apis mock-data/server.js",
     "build": "lerna run build --sort --stream --scope=@ace-fetch/*",
     "test": "jest --coverage --passWithNoTests",
-    "prepublishOnly": "yarn install --ignore-scripts && yarn changelog && yarn build && yarn test",
+    "prepublishOnly": "yarn install --mode=skip-build && yarn changelog && yarn build && yarn test",
     "release": "lerna publish",
     "release:git": "lerna publish from-git",
     "release:package": "lerna publish from-package",
