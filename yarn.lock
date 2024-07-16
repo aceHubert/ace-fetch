@@ -37,6 +37,7 @@ __metadata:
     "@ace-fetch/vue": ^0.3.0
     "@ace-util/core": ^0.1.1
     "@dcloudio/types": ^3.4.8
+    "@ungap/url-search-params": ^0.2.2
     nuxt: ~3.0.0-rc.0
   peerDependencies:
     "@ace-fetch/core": ^0.1.0
@@ -3975,6 +3976,13 @@ __metadata:
     "@typescript-eslint/types": 5.30.6
     eslint-visitor-keys: ^3.3.0
   checksum: e4ec0541d685d211274724c9f1887b6cdd03c7fc4fbdd1ea74c18311c3a5a9a2d4c676448ea714687ca13cc881ec5c73605de75fbf38f302ba8ea86d2b77897f
+  languageName: node
+  linkType: hard
+
+"@ungap/url-search-params@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "@ungap/url-search-params@npm:0.2.2"
+  checksum: 779506cca3d36bc291e4e6eb0484e8bd87186cbe5bb6a6d37f17a866c47069d8a3a20b9331ef0a5c96f26b4db8210cf26c6e5a1f4a6c8be3be13a619e82cb93c
   languageName: node
   linkType: hard
 

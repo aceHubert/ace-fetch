@@ -65,7 +65,8 @@
     "url": "https://github.com/aceHubert/vus-async/issues"
   },
   "dependencies": {
-    "@ace-util/core": "^0.1.1"
+    "@ace-util/core": "^0.1.1",
+    "@ungap/url-search-params": "^0.2.2"
   },
   "devDependencies": {
     "@ace-fetch/core": "^0.3.0",
