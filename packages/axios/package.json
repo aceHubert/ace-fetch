@@ -65,16 +65,14 @@
     "url": "https://github.com/aceHubert/vus-async/issues"
   },
   "dependencies": {
+    "@ace-fetch/core": "0.3.2",
     "@ace-util/core": "^0.1.1"
   },
   "devDependencies": {
-    "@ace-fetch/core": "^0.3.2",
-    "@ace-fetch/vue": "^0.3.2",
     "axios": "^0.27.1",
     "nuxt": "^3.0.0"
   },
   "peerDependencies": {
-    "@ace-fetch/core": "^0.1.0",
     "axios": "^0.27.0"
   },
   "publishConfig": {

@@ -1,9 +1,14 @@
-import { defineNuxtConfig } from 'nuxt';
+import { fileURLToPath, URL } from 'node:url';
+import { defineNuxtConfig } from 'nuxt/config';
 
 export default defineNuxtConfig({
   ssr: false,
-  plugins: ['@/plugins/fetch'],
+  // plugins: ['@/plugins/fetch'],
   build: {
     transpile: ['@ace-fetch/core'],
+  },
+  alias: {
+    '@ace-fetch/core': fileURLToPath(new URL('../../core/src', import.meta.url)),
+    '@ace-fetch/vue': fileURLToPath(new URL('../src', import.meta.url)),
   },
 });

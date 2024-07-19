@@ -9,18 +9,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ace-fetch/axios@workspace:packages/axios"
   dependencies:
-    "@ace-fetch/core": ^0.3.2
-    "@ace-fetch/vue": ^0.3.2
+    "@ace-fetch/core": 0.3.2
     "@ace-util/core": ^0.1.1
     axios: ^0.27.1
     nuxt: ^3.0.0
   peerDependencies:
-    "@ace-fetch/core": ^0.1.0
     axios: ^0.27.0
   languageName: unknown
   linkType: soft
 
-"@ace-fetch/core@^0.3.2, @ace-fetch/core@workspace:packages/core":
+"@ace-fetch/core@0.3.2, @ace-fetch/core@^0.3.2, @ace-fetch/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@ace-fetch/core@workspace:packages/core"
   dependencies:
@@ -5074,10 +5072,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^12.12.14":
-  version: 12.20.55
-  resolution: "@types/node@npm:12.20.55"
-  checksum: e4f86785f4092706e0d3b0edff8dca5a13b45627e4b36700acd8dfe6ad53db71928c8dee914d4276c7fd3b6ccd829aa919811c9eb708a2c8e4c6eb3701178c37
+"@types/node@npm:^16.0.0":
+  version: 16.18.103
+  resolution: "@types/node@npm:16.18.103"
+  checksum: aef09cf77586568cf961b4c3aa15867b76079badf067e76104ffdc5437f8ce7057ee3b1e3699db43328ff460f9bbe7cc1c78a9a6b1bc82dc53994a663fe02863
   languageName: node
   linkType: hard
 
@@ -18842,7 +18840,7 @@ __metadata:
     "@rollup/plugin-replace": ^2.3.1
     "@types/fs-extra": ^9.0.13
     "@types/jest": ^24.0.23
-    "@types/node": ^12.12.14
+    "@types/node": ^16.0.0
     "@typescript-eslint/eslint-plugin": ^5.30.5
     "@typescript-eslint/parser": ^5.30.5
     "@zerollup/ts-transform-paths": ^1.7.18

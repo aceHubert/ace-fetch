@@ -17,6 +17,7 @@
       "ignoreChanges": [
         "**/CHANGELOG.md",
         "**/node_modules/**",
+        "**/playground/**",
         "**/package.json",
         "**/*.md",
         "**/test/**",

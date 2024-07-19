@@ -65,17 +65,22 @@
     "url": "https://github.com/aceHubert/vus-async/issues"
   },
   "dependencies": {
+    "@ace-fetch/core": "0.3.2",
     "@ace-util/core": "^0.1.1",
     "vue-demi": "*"
   },
   "devDependencies": {
-    "@ace-fetch/core": "^0.3.2",
     "axios": "^0.27.1",
     "nuxt": "^3.0.0"
   },
   "peerDependencies": {
-    "@ace-fetch/core": "^0.1.0",
+    "@vue/composition-api": "^1.0.0",
     "vue": "^2.6.0 || ^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
   },
   "publishConfig": {
     "access": "public"
