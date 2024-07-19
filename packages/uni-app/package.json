@@ -41,19 +41,19 @@
   ],
   "scripts": {
     "serve:playground": "nuxi dev playground  --port 7003",
-    "serve": "concurrently --raw \"tsc --project tsconfig.build.json --module es2015 --declaration --declarationDir types --outDir esm -watch\" \"yarn serve:playground\"",
-    "prebuild": "node -p \"'export const version: string = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
-    "build": "rimraf -rf lib esm dist && yarn build:cjs && yarn build:esm && yarn build:umd",
-    "build:cjs": "tsc --project tsconfig.build.json",
-    "build:esm": "tsc --project tsconfig.build.json --module es2015 --outDir esm",
-    "build:umd": "rollup --config",
-    "release:major": "npm version $(semver $npm_package_version -i major) && yarn build && npm publish --tag latest",
-    "release:minor": "npm version $(semver $npm_package_version -i minor) && yarn build && npm publish --tag latest",
-    "release:patch": "npm version $(semver $npm_package_version -i patch) && yarn build && npm publish --tag latest",
-    "release:alpha": "npm version $(semver $npm_package_version -i prerelease --preid alpha ) && yarn build && npm publish --tag alpha",
-    "release:beta": "npm version $(semver $npm_package_version -i prerelease --preid beta ) && yarn build && npm publish --tag beta",
-    "lint": "eslint . --cache --report-unused-disable-directives --ignore-path=../../.eslintignore",
-    "lint:fix": "eslint . --cache --fix --ignore-path=../../.eslintignore"
+    "serve": "run -T concurrently --raw \"tsc --project tsconfig.build.json --module es2015 --declaration --declarationDir types --outDir esm -watch\" \"yarn serve:playground\"",
+    "build": "run -T rimraf -rf lib esm dist && yarn build:version && yarn build:cjs && yarn build:esm && yarn build:umd",
+    "build:version": "node -p \"'export const version: string = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
+    "build:cjs": "run -T tsc --project tsconfig.build.json",
+    "build:esm": "run -T tsc --project tsconfig.build.json --module es2015 --outDir esm",
+    "build:umd": "run -T rollup --config",
+    "release:major": "npm version $(run -T semver $npm_package_version -i major) && yarn build && npm publish --tag latest",
+    "release:minor": "npm version $(run -T semver $npm_package_version -i minor) && yarn build && npm publish --tag latest",
+    "release:patch": "npm version $(run -T semver $npm_package_version -i patch) && yarn build && npm publish --tag latest",
+    "release:alpha": "npm version $(run -T semver $npm_package_version -i prerelease --preid alpha ) && yarn build && npm publish --tag alpha",
+    "release:beta": "npm version $(run -T semver $npm_package_version -i prerelease --preid beta ) && yarn build && npm publish --tag beta",
+    "lint": "run -T eslint . --cache --report-unused-disable-directives --ignore-path=../../.eslintignore",
+    "lint:fix": "run -T eslint . --cache --fix --ignore-path=../../.eslintignore"
   },
   "license": "MIT",
   "repository": {
@@ -72,7 +72,7 @@
     "@ace-fetch/core": "^0.3.0",
     "@ace-fetch/vue": "^0.3.0",
     "@dcloudio/types": "^3.4.8",
-    "nuxt": "~3.0.0-rc.0"
+    "nuxt": "3.0.0"
   },
   "peerDependencies": {
     "@ace-fetch/core": "^0.1.0"
