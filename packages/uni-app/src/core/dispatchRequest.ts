@@ -21,13 +21,14 @@ export class UniFetchError extends Error {
 export const isUniFetchError = (error: any): error is UniFetchError => error instanceof UniFetchError;
 
 // @ts-ignore
-export function dispatchRequest({ url, params, headers, ...rest }: RequestConfig): Promise<Response<any>> {
+export function dispatchRequest({ url, method, params, headers, ...rest }: RequestConfig): Promise<Response<any>> {
   return new Promise((resolove, reject) => {
     if (params && Object.keys(params).length > 0) {
-      url += (url.indexOf('?') >= 0 ? '&' : '?') + new URLSearchParams(params).toString();
+      url += (url!.indexOf('?') >= 0 ? '&' : '?') + new URLSearchParams(params).toString();
     }
     const config = {
-      url,
+      url: url!,
+      method: method as UniApp.RequestOptions['method'],
       header: headers,
       ...rest,
     };

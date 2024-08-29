@@ -43,7 +43,7 @@ function formatRequestPath(
  * @param keys string key or function, function first argument is request params
  * @returns the method url format function
  */
-export function typedUrl<R = any, P = any, D = any>(
+export function typedUrl<R = any, P extends Record<string, any> = Record<string, any>, D = any>(
   strings: TemplateStringsArray,
   ...keys: Array<string | Function>
 ): MethodUrlFn<R, P, D>;
@@ -52,10 +52,10 @@ export function typedUrl<R = any, P = any, D = any>(
  * @param config local config object
  * @returns template literals function
  */
-export function typedUrl<R = any, P = any, D = any>(
+export function typedUrl<R = any, P extends Record<string, any> = Record<string, any>, D = any>(
   config: Partial<RequestConfig>,
 ): (strings: TemplateStringsArray, ...keys: Array<string | Function>) => MethodUrlFn<R, P, D>;
-export function typedUrl<R, P, D>(
+export function typedUrl<R, P extends Record<string, any>, D>(
   configOrStrings: Partial<RequestConfig> | TemplateStringsArray,
   ...keys: Array<string | Function>
 ): MethodUrlFn<R, P, D> | ((strings: TemplateStringsArray, ...keys: Array<string | Function>) => MethodUrlFn<R, P, D>) {
