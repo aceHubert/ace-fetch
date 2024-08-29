@@ -32,11 +32,9 @@ __metadata:
   resolution: "@ace-fetch/graphql@workspace:packages/graphql"
   dependencies:
     "@apollo/client": ^3.0.0
-    "@types/lodash.hasin": ^4.5.9
     "@types/lodash.snakecase": ^4.1.9
     graphql: ^16.0.0
     graphql-tag: "*"
-    lodash.hasin: ^4.5.2
     lodash.snakecase: ^4.1.1
     ts-invariant: ^0.10.3
   peerDependencies:
@@ -5111,15 +5109,6 @@ __metadata:
   version: 7.0.11
   resolution: "@types/json-schema@npm:7.0.11"
   checksum: 527bddfe62db9012fccd7627794bd4c71beb77601861055d87e3ee464f2217c85fca7a4b56ae677478367bbd248dbde13553312b7d4dbc702a2f2bbf60c4018d
-  languageName: node
-  linkType: hard
-
-"@types/lodash.hasin@npm:^4.5.9":
-  version: 4.5.9
-  resolution: "@types/lodash.hasin@npm:4.5.9"
-  dependencies:
-    "@types/lodash": "*"
-  checksum: 11da3d4401133d60636622c6a2b922c240bb1f0ad619cee49f06a621d302ec6c7d845974ed631a7fc7d3fe1a37a1e41ac8e869e96c371d61581c62e4fb6c3296
   languageName: node
   linkType: hard
 
@@ -14345,13 +14334,6 @@ __metadata:
   version: 4.4.2
   resolution: "lodash.get@npm:4.4.2"
   checksum: e403047ddb03181c9d0e92df9556570e2b67e0f0a930fcbbbd779370972368f5568e914f913e93f3b08f6d492abc71e14d4e9b7a18916c31fa04bd2306efe545
-  languageName: node
-  linkType: hard
-
-"lodash.hasin@npm:^4.5.2":
-  version: 4.5.2
-  resolution: "lodash.hasin@npm:4.5.2"
-  checksum: d18a0144f17ce1f98b905a5123a0702743474a400a088d14f1e95fae3b4bee68171578f9cb6b05183b76a6793778c469520a49ef6308d2322652982968d06042
   languageName: node
   linkType: hard
 
