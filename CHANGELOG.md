@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/aceHubert/ace-fetch/compare/v0.3.2...v0.4.0) (2024-08-29)
+
+
+### Bug Fixes
+
+* type error ([7c99e42](https://github.com/aceHubert/ace-fetch/commit/7c99e42beebfd1bc416099aa8c453e87e06d61e7))
+
+
+### Features
+
+* add graphql support ([4b60d09](https://github.com/aceHubert/ace-fetch/commit/4b60d09368191d79d34324143794b1af4ff44089))
+
+
+
+
+
 ## [0.3.2](https://github.com/aceHubert/ace-fetch/compare/v0.3.1...v0.3.2) (2024-07-19)
 
 **Note:** Version bump only for package root
