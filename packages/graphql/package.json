@@ -1,8 +1,8 @@
 {
-  "name": "@ace-fetch/vue",
+  "name": "@ace-fetch/graphql",
   "version": "0.3.2",
   "author": "Hubert<yi.xiang@live.com>",
-  "description": "vue adapter for @ace-fetch/core.",
+  "description": "Fetch Provider.",
   "main": "lib/index.js",
   "module": "esm/index.js",
   "umd:main": "dist/index.umd.production.js",
@@ -29,10 +29,9 @@
     }
   },
   "keywords": [
-    "vue",
     "ace-fetch",
     "fetch",
-    "microfront"
+    "graphql"
   ],
   "files": [
     "dist",
@@ -40,7 +39,7 @@
     "esm"
   ],
   "scripts": {
-    "serve:playground": "nuxi dev playground --port 7004",
+    "serve:playground": "nuxi dev playground --port 7002",
     "serve": "run -T concurrently --raw \"tsc --project tsconfig.build.json --module es2015 --declaration --declarationDir types --outDir esm -watch\" \"yarn serve:playground\"",
     "build": "run -T rimraf -rf lib esm dist && yarn build:version && yarn build:cjs && yarn build:esm && yarn build:umd",
     "build:version": "node -p \"'export const version: string = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
@@ -59,28 +58,24 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/aceHubert/ace-fetch.git",
-    "directory": "packages/vue"
+    "directory": "packages/core"
   },
   "bugs": {
     "url": "https://github.com/aceHubert/ace-fetch/issues"
   },
   "dependencies": {
-    "@ace-fetch/core": "0.3.2",
-    "@ace-util/core": "^0.1.1",
-    "vue-demi": "*"
+    "graphql": "*",
+    "graphql-tag": "*",
+    "lodash.snakecase": "^4.1.1",
+    "ts-invariant": "^0.10.3"
   },
   "devDependencies": {
-    "axios": "^0.27.1",
-    "nuxt": "^3.0.0"
+    "@apollo/client": "^3.0.0",
+    "@types/lodash.snakecase": "^4.1.9",
+    "graphql": "^16.0.0"
   },
   "peerDependencies": {
-    "@vue/composition-api": "^1.0.0",
-    "vue": "^2.6.0 || ^3.0.0"
-  },
-  "peerDependenciesMeta": {
-    "@vue/composition-api": {
-      "optional": true
-    }
+    "@apollo/client": "^3.0.0"
   },
   "publishConfig": {
     "access": "public"

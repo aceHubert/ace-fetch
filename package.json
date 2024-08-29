@@ -86,9 +86,6 @@
     "util": "^0.12.1",
     "yorkie": "^2.0.0"
   },
-  "resolutions": {
-    "typescript": "~4.6.x"
-  },
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-lerna-changelog"

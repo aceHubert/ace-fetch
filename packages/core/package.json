@@ -61,7 +61,7 @@
     "directory": "packages/core"
   },
   "bugs": {
-    "url": "https://github.com/aceHubert/vus-async/issues"
+    "url": "https://github.com/aceHubert/ace-fetch/issues"
   },
   "devDependencies": {
     "axios": "^0.27.1",
