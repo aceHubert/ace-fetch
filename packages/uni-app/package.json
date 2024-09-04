@@ -1,6 +1,6 @@
 {
   "name": "@ace-fetch/uni-app",
-  "version": "0.4.1-alpha.0",
+  "version": "0.5.0-alpha.0",
   "author": "Hubert<yi.xiang@live.com>",
   "description": "uni-app adapter for @ace-fetch/core.",
   "main": "lib/index.js",
@@ -64,7 +64,7 @@
     "url": "https://github.com/aceHubert/ace-fetch/issues"
   },
   "dependencies": {
-    "@ace-fetch/core": "^0.4.1-alpha.0",
+    "@ace-fetch/core": "^0.5.0-alpha.0",
     "@ace-util/core": "^0.3.0",
     "@ungap/url-search-params": "^0.2.2"
   },

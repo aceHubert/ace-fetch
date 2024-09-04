@@ -1,18 +1,12 @@
 {
-  "packages": [
-    "packages/*",
-    "docs"
-  ],
+  "packages": ["packages/*", "docs"],
   "npmClient": "yarn",
   "command": {
     "publish": {
       "conventionalCommits": true,
       "gitTagVersion": true,
       "gitReset": true,
-      "allowBranch": [
-        "master",
-        "next"
-      ],
+      "allowBranch": ["master", "next"],
       "ignoreChanges": [
         "**/CHANGELOG.md",
         "**/node_modules/**",
@@ -26,7 +20,7 @@
       "message": "chore(release): 😊 publish"
     }
   },
-  "version": "0.4.0",
+  "version": "0.5.0-alpha.0",
   "changelog": {
     "repo": "aceHubert/ace-fetch",
     "labels": {

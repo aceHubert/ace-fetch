@@ -8,10 +8,3 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - graphql for vue ([00d5f4c](https://github.com/aceHubert/ace-fetch/commit/00d5f4c7d0e77fc7357a716d759a9d40445c4a81))
-- grapqhl use plugin to apply catchError/loading/retry function ([7d311bf](https://github.com/aceHubert/ace-fetch/commit/7d311bf4a95f83b37d1a996ddf6f76ca3654f41d))
-
-# [0.4.0](https://github.com/aceHubert/ace-fetch/compare/v0.3.2...v0.4.0) (2024-08-29)
-
-### Features
-
-- add graphql support ([4b60d09](https://github.com/aceHubert/ace-fetch/commit/4b60d09368191d79d34324143794b1af4ff44089))
