@@ -5,7 +5,7 @@ import type {
   MutationOptions,
   SubscriptionOptions,
   DefaultContext,
-} from '@apollo/client/core';
+} from '@apollo/client';
 import type { DocumentType } from './constants';
 
 export interface IDocumentDefinition {
@@ -145,12 +145,12 @@ export interface ObserverOptions<TData> {
   onComplete?: () => void;
 }
 
-export type RegistGraphqlDefinition = Record<
+export type DefaultRegistGraphqlDefinition = Record<
   string,
   TypedDocumentNode | TypedQueryDocumentNode | TypedMutationDocumentNode | TypedSubscriptionDocumentNode
 >;
 
-export type RegistGraphql<C extends Record<string, TypedDocumentNode> = RegistGraphqlDefinition> = {
+export type RegistGraphql<C extends Record<string, TypedDocumentNode<any, any>> = DefaultRegistGraphqlDefinition> = {
   [P in keyof C]: C[P] extends TypedQueryDocumentNode<infer ResultType, infer VariablesType>
     ? <TData = ResultType, TVariables = VariablesType, Result = TData>(
         options?: Omit<QueryOptions<TVariables, TData>, 'query' | 'variables'> &
@@ -183,7 +183,9 @@ type OptionsInPlugin<O extends Record<string, any>> = {
   // runWhen?: (config: AxiosRequestConfig) => boolean;
 } & O;
 
-export interface RegisterPluginContext<C extends Record<string, TypedDocumentNode> = RegistGraphqlDefinition> {
+export interface RegisterPluginContext<
+  C extends Record<string, TypedDocumentNode<any, any>> = DefaultRegistGraphqlDefinition,
+> {
   /**
    * regist graphql
    */
@@ -191,11 +193,20 @@ export interface RegisterPluginContext<C extends Record<string, TypedDocumentNod
 }
 
 /**
- * plugin definition for package '@ace-fetch/core'
+ * Custom registApis properties extends from plugin
+ */
+export interface RegistGraphqlCustomProperties<
+  C extends Record<string, TypedDocumentNode<any, any>> = DefaultRegistGraphqlDefinition,
+> {}
+
+/**
+ * plugin definition
  */
 export interface PluginDefinition<
   O extends Record<string, any>,
-  C extends Record<string, TypedDocumentNode> = RegistGraphqlDefinition,
+  C extends Record<string, TypedDocumentNode<any, any>> = DefaultRegistGraphqlDefinition,
 > {
-  (options?: OptionsInPlugin<O>): (context: RegisterPluginContext<C>) => RegistGraphql<C>;
+  (options?: OptionsInPlugin<O>): (
+    context: RegisterPluginContext<C>,
+  ) => RegistGraphql<C> & RegistGraphqlCustomProperties<C>;
 }

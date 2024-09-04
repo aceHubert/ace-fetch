@@ -50,7 +50,7 @@ export function registCatchError<Request extends (config: any) => any>(
 
 /**
  * 注册异常处理插件
- * 只在regist apis上运行 (and 自定义条件下)
+ * 只在regist graphqls上运行 (and 自定义条件下)
  * @param options 插件配置
  */
 export const createCatchErrorPlugin: PluginDefinition<CatchErrorOptions> =

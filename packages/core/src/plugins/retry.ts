@@ -1,8 +1,8 @@
-import { isPromise, warn } from '@ace-util/core';
+import { warn } from '@ace-util/core';
 import { debug } from '../env';
 
 // Types
-import type { PluginDefinition, RegistGraphql, RequestCustomConfig, RetryOptions } from '../types';
+import type { PluginDefinition, RegistApi, Request, RequestConfig, RequestCustomConfig, RetryOptions } from '../types';
 
 export const RetryCountSymbol = '__RetryCount__';
 
@@ -19,9 +19,9 @@ const defaultOptions: RetryOptions = {
 
 function retryHandler(
   error: Error,
-  config: RequestCustomConfig | undefined,
+  config: (RequestConfig & RequestCustomConfig) | undefined,
   options: RetryOptions,
-  retryRequest: (config: any) => Promise<any>,
+  retryRequest: Request,
 ) {
   if (!!config?.retry) {
     const curOptions = typeof config.retry === 'boolean' ? options : { ...options, ...config.retry };
@@ -39,7 +39,7 @@ function retryHandler(
       // formula(2 ^ c - 1 / 2) * 1000(for mS to seconds)
       const backoff = new Promise(function (resolve) {
         const backOffDelay = curOptions.delay ? (1 / 2) * (Math.pow(2, config[RetryCountSymbol]!) - 1) * 1000 : 1;
-        warn(!debug, `retry delay ${backOffDelay}ms`);
+        warn(!debug, `${config.url}: retry delay ${backOffDelay}ms`);
         setTimeout(function () {
           resolve(null);
         }, backOffDelay);
@@ -47,7 +47,7 @@ function retryHandler(
 
       // Return the promise in which recalls axios to retry the request
       return backoff.then(function () {
-        warn(!debug, `retry ${config[RetryCountSymbol]} time(s)`);
+        warn(!debug, `${config.url}: retry ${config[RetryCountSymbol]} time(s)`);
         return retryRequest(config);
       });
     }
@@ -61,18 +61,10 @@ function retryHandler(
  * @param request request promise
  * @param options catch error options
  */
-export function registRetry<Request extends (config: any) => any>(
-  request: Request,
-  options: RetryOptions,
-): (config?: Parameters<Request>[0]) => ReturnType<Request> {
-  const curOptions = { ...defaultOptions, ...options };
-
-  const retryRequest = (config?: Parameters<Request>[0]) => {
-    const requestPromise = request(config);
-    if (!isPromise(requestPromise)) {
-      return requestPromise;
-    }
-    return requestPromise.catch((error) => {
+export function registRetry(request: Request, options: RetryOptions): Request {
+  const retryRequest = (config?: Partial<RequestConfig>) => {
+    const curOptions = { ...defaultOptions, ...options };
+    return request(config).catch((error) => {
       return retryHandler(error, config, curOptions, retryRequest);
     });
   };
@@ -82,16 +74,16 @@ export function registRetry<Request extends (config: any) => any>(
 
 /**
  * 注册重试插件
- * 只在regist graphqls上运行 (and 自定义条件下)
+ * 只在regist apis上运行 (and 自定义条件下)
  * @param options 插件配置
  */
 export const createRetryPlugin: PluginDefinition<RetryOptions> =
   (options = {}) =>
-  ({ registGraphqls }) => {
-    return Object.keys(registGraphqls).reduce((prev, key) => {
-      prev[key] = registRetry(registGraphqls[key], options);
+  ({ registApis }) => {
+    return Object.keys(registApis).reduce((prev, key) => {
+      prev[key] = registRetry(registApis[key], options);
       return prev;
-    }, {} as RegistGraphql);
+    }, {} as RegistApi);
   };
 
 /**

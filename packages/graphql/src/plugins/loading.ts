@@ -60,7 +60,7 @@ export function registLoading<Request extends (config: any) => any>(
 
 /**
  * 注入加载中插件
- * 只在regist apis上运行 (and 自定义条件下)
+ * 只在regist graphqls上运行 (and 自定义条件下)
  * @param options 插件配置
  */
 export const createLoadingPlugin: PluginDefinition<LoadingOptions> =

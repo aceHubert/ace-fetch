@@ -12,7 +12,7 @@ import type {
   TypedDocumentNode,
 } from '@apollo/client';
 import type { GraphQLFormattedError } from 'graphql';
-import type { RegistGraphqlDefinition, RegistGraphql, RequestCustomConfig, ObserverOptions } from '../types';
+import type { RegistGraphql, RequestCustomConfig, ObserverOptions } from '../types';
 
 export class GraphQLInnerError extends Error {
   graphQLErrors: ReadonlyArray<GraphQLFormattedError>;
@@ -25,24 +25,30 @@ export class GraphQLInnerError extends Error {
   }
 }
 
-export function registGraphql<C extends RegistGraphqlDefinition>(client: ApolloClient<any>, apis: C): RegistGraphql<C> {
-  return Object.keys(apis).reduce((prev, key) => {
-    const doc = parser(apis[key]);
+/**
+ * register graphql
+ * @param client ApolloClient
+ * @param definition regist graphqls definition
+ */
+export function registGraphql<C extends Record<string, TypedDocumentNode<any, any>>>(
+  client: ApolloClient<any>,
+  definition: C,
+): RegistGraphql<C> {
+  return Object.keys(definition).reduce((prev, key) => {
+    const doc = parser(definition[key]);
     if (doc.type === DocumentType.Query) {
       prev[key] = <TData = any, TVariables extends OperationVariables = OperationVariables>(
         options: RequestCustomConfig & Omit<QueryOptions<TVariables, TData>, 'query'>,
       ) =>
-        client
-          .query({ ...options, query: apis[key] as TypedDocumentNode<TData, TVariables> })
-          .then(({ data, error, errors }) => {
-            // "all" errorPolicy
-            // https://www.apollographql.com/docs/react/data/error-handling#graphql-error-policies
-            if (error || errors?.length) {
-              throw error ? error : new GraphQLInnerError('Check details in inner error(s)', errors!);
-            }
+        client.query({ ...options, query: definition[key] }).then(({ data, error, errors }) => {
+          // "all" errorPolicy
+          // https://www.apollographql.com/docs/react/data/error-handling#graphql-error-policies
+          if (error || errors?.length) {
+            throw error ? error : new GraphQLInnerError('Check details in inner error(s)', errors!);
+          }
 
-            return data;
-          });
+          return data;
+        });
     } else if (doc.type === DocumentType.Mutation) {
       prev[key] = <
         TData = any,
@@ -51,7 +57,7 @@ export function registGraphql<C extends RegistGraphqlDefinition>(client: ApolloC
       >(
         options: RequestCustomConfig & Omit<MutationOptions<TData, TVariables, TContext>, 'mutation'>,
       ) =>
-        client.mutate({ ...options, mutation: apis[key] }).then(({ data, errors }) => {
+        client.mutate({ ...options, mutation: definition[key] }).then(({ data, errors }) => {
           // "all" errorPolicy
           // https://www.apollographql.com/docs/react/data/error-handling#graphql-error-policies
           if (errors?.length) {
@@ -67,9 +73,9 @@ export function registGraphql<C extends RegistGraphqlDefinition>(client: ApolloC
         onComplete,
         ...subscribeOptions
       }: ObserverOptions<TData> & Omit<SubscriptionOptions<TVariables, TData>, 'query'>) => {
-        const observer = client.subscribe({
+        const observer = client.subscribe<TData, TVariables>({
           ...subscribeOptions,
-          query: apis[key] as TypedDocumentNode<TData, TVariables>,
+          query: definition[key],
         });
 
         const subscription = observer.subscribe({

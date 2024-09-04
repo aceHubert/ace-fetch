@@ -1,8 +1,8 @@
 {
-  "name": "@ace-fetch/graphql",
+  "name": "@ace-fetch/graphql-vue",
   "version": "0.4.1-alpha.4",
   "author": "Hubert<yi.xiang@live.com>",
-  "description": "Fetch Provider.",
+  "description": "vue adapter for @ace-fetch/graphql.",
   "main": "lib/index.js",
   "module": "esm/index.js",
   "umd:main": "dist/index.umd.production.js",
@@ -29,9 +29,11 @@
     }
   },
   "keywords": [
+    "vue",
     "ace-fetch",
     "fetch",
-    "graphql"
+    "graphql",
+    "microfront"
   ],
   "files": [
     "dist",
@@ -39,7 +41,8 @@
     "esm"
   ],
   "scripts": {
-    "serve": "run -T tsc --project tsconfig.build.json --module es2015 --declaration --declarationDir types --outDir esm -watch",
+    "serve:playground": "run -T nuxi dev playground --port 7004",
+    "serve": "run -T concurrently --raw \"tsc --project tsconfig.build.json --module es2015 --declaration --declarationDir types --outDir esm -watch\" \"yarn serve:playground\"",
     "build": "run -T rimraf -rf lib esm dist && yarn build:version && yarn build:cjs && yarn build:esm && yarn build:umd",
     "build:version": "node -p \"'export const version: string = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
     "build:cjs": "run -T tsc --project tsconfig.build.json",
@@ -48,8 +51,8 @@
     "release:major": "yarn version $(run -T semver $npm_package_version -i major) && ../../scripts/remove-stableVersion.sh && yarn build && npm publish --tag latest",
     "release:minor": "yarn version $(run -T semver $npm_package_version -i minor) && ../../scripts/remove-stableVersion.sh && yarn build && npm publish --tag latest",
     "release:patch": "yarn version $(run -T semver $npm_package_version -i patch) && ../../scripts/remove-stableVersion.sh && yarn build && npm publish --tag latest",
-    "release:alpha": "yarn version $(run -T semver $npm_package_version -i prerelease --preid alpha) && ../../scripts/remove-stableVersion.sh && yarn build && npm publish --tag alpha",
-    "release:beta": "yarn version $(run -T semver $npm_package_version -i prerelease --preid beta) && ../../scripts/remove-stableVersion.sh && yarn build && npm publish --tag beta",
+    "release:alpha": "yarn version $(run -T semver $npm_package_version -i prerelease --preid alpha ) && ../../scripts/remove-stableVersion.sh && yarn build && npm publish --tag alpha",
+    "release:beta": "yarn version $(run -T semver $npm_package_version -i prerelease --preid beta ) && ../../scripts/remove-stableVersion.sh && yarn build && npm publish --tag beta",
     "lint": "run -T eslint . --cache --report-unused-disable-directives --ignore-path=../../.eslintignore",
     "lint:fix": "run -T eslint . --cache --fix --ignore-path=../../.eslintignore"
   },
@@ -57,21 +60,20 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/aceHubert/ace-fetch.git",
-    "directory": "packages/core"
+    "directory": "packages/graphql-vue"
   },
   "bugs": {
     "url": "https://github.com/aceHubert/ace-fetch/issues"
   },
   "dependencies": {
+    "@ace-fetch/graphql": "^0.4.1-alpha.4",
     "@ace-util/core": "^0.3.0",
-    "ts-invariant": "^0.10.3"
+    "graphql-tag": "^2.12.6",
+    "vue-demi": "^*"
   },
   "devDependencies": {
     "@apollo/client": "^3.0.0",
     "graphql": "^16.9.0"
-  },
-  "peerDependencies": {
-    "graphql": "^16.0.0"
   },
   "publishConfig": {
     "access": "public"
