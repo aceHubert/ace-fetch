@@ -1,9 +1,8 @@
-import { warn } from '@ace-util/core';
+import { promisify, warn } from '@ace-util/core';
 import { debug } from '../env';
 
 // Types
-import type { RequestConfig, FetchPromise } from '@ace-fetch/core';
-import type { CatchErrorOptions } from '../types';
+import type { PluginDefinition, RegistApi, Request, RequestCustomConfig, CatchErrorOptions } from '../types';
 
 const defaultOptions: CatchErrorOptions = {
   handler: (error) => {
@@ -17,7 +16,7 @@ const defaultOptions: CatchErrorOptions = {
 
 function catchErrorHandler(
   error: Error,
-  config: Partial<RequestConfig> | undefined,
+  config: RequestCustomConfig | undefined,
   handler: CatchErrorOptions['handler'],
 ) {
   if (!!config?.catchError) {
@@ -27,30 +26,26 @@ function catchErrorHandler(
   return Promise.reject(error);
 }
 
-function promisify<T>(promise: T | PromiseLike<T>): Promise<T> {
-  if (promise && promise instanceof Promise && typeof promise.then === 'function') {
-    return promise;
-  }
-  return Promise.resolve(promise);
-}
-
 /**
  * regist catch error plugin on current promise request
  * @param request request promise
  * @param options catch error options
  */
-export function registCatchError<Request extends (config: any) => FetchPromise<any>>(
-  request: Request,
-  options: CatchErrorOptions = {},
-): (config?: Partial<RequestConfig>) => FetchPromise<any> {
+export function registCatchError(request: Request, options: CatchErrorOptions = {}): Request {
   const curOptions = { ...defaultOptions, ...options };
   return (config) =>
     request(config)
       .then(async (response) => {
+        if (curOptions.serializerResponse) {
+          return promisify(curOptions.serializerResponse(response));
+        }
+
         if (curOptions.serializerData) {
           const data = await promisify(curOptions.serializerData(response.data));
-          response.data = data as any;
+          response.data = data;
+          return response;
         }
+
         return response;
       })
       .catch((error) => {
@@ -58,3 +53,17 @@ export function registCatchError<Request extends (config: any) => FetchPromise<a
         return catchErrorHandler(error, config, curOptions.handler);
       });
 }
+
+/**
+ * 注册异常处理插件
+ * 只在regist apis上运行 (and 自定义条件下)
+ * @param options 插件配置
+ */
+export const createCatchErrorPlugin: PluginDefinition<CatchErrorOptions> =
+  (options = {}) =>
+  ({ registApis }) => {
+    return Object.keys(registApis).reduce((prev, key) => {
+      prev[key] = registCatchError(registApis[key], options);
+      return prev;
+    }, {} as RegistApi);
+  };

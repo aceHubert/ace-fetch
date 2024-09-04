@@ -1,11 +1,10 @@
 import { warn } from '@ace-util/core';
+import { debug } from '@ace-fetch/core';
 import axios from 'axios';
-import { debug } from '../env';
 
 // Types
-import type { AxiosInstance } from 'axios';
-import type { RequestConfig, FetchPromise } from '@ace-fetch/core';
-import type { RetryOptions } from '../types';
+import type { AxiosInstance, AxiosRequestConfig } from 'axios';
+import type { RetryOptions } from '@ace-fetch/core';
 
 // axios mergeConig does not support Symbol (Object.keys())
 export const RetryCountSymbol = '__RetryCount__';
@@ -26,9 +25,9 @@ const isCancelError = axios.isCancel;
 
 function retryHandler(
   error: Error,
-  config: RequestConfig | undefined,
+  config: AxiosRequestConfig | undefined,
   options: RetryOptions,
-  retryRequest: (config: any) => FetchPromise,
+  retryRequest: AxiosInstance,
 ) {
   if (!!config?.retry) {
     const curOptions = typeof config.retry === 'boolean' ? options : { ...options, ...config.retry };
@@ -87,7 +86,7 @@ export function applyRetry(axiosInstance: AxiosInstance, options: RetryOptions) 
       `,
     );
 
-    return retryHandler(error, error.config, curOptions, axios);
+    return retryHandler(error, error.config, curOptions, axiosInstance);
   });
   axiosInstance.interceptors.response.use(undefined, (error) => {
     if (!isAxiosError(error)) {
@@ -105,34 +104,15 @@ export function applyRetry(axiosInstance: AxiosInstance, options: RetryOptions) 
       `,
       );
 
-    return retryHandler(error, error.config, curOptions, axios);
+    return retryHandler(error, error.config, curOptions, axiosInstance);
   });
-}
-
-/**
- * regist retry plugin on current promise request
- * @param request request promise
- * @param options catch error options
- */
-export function registRetry<Request extends (config: any) => FetchPromise<any>>(
-  request: Request,
-  options: RetryOptions,
-): (config?: Partial<RequestConfig>) => FetchPromise<any> {
-  const retryRequest = (config?: Partial<RequestConfig>) => {
-    const curOptions = { ...defaultOptions, ...options };
-    return request(config).catch((error) => {
-      return retryHandler(error, config, curOptions, retryRequest);
-    });
-  };
-
-  return retryRequest;
 }
 
 /**
  * @internal
  */
-declare module '@ace-fetch/core' {
-  interface RequestConfig {
+declare module 'axios' {
+  interface AxiosRequestConfig {
     [RetryCountSymbol]?: number;
   }
 }

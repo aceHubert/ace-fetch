@@ -5,6 +5,5 @@ import { version } from './version';
 warn(coreVersion === version, `"@ace-fetch/core" version mismatch, expected ${version} but ${coreVersion}!`);
 
 export { version };
-export { setDebug } from './env';
 export * from './core';
 export * from './types';

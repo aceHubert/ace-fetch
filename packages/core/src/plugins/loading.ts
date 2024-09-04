@@ -1,9 +1,5 @@
 // Types
-import type { RequestConfig, FetchPromise } from '@ace-fetch/core';
-import type { LoadingHandler, LoadingOptions } from '../types';
-
-export const StopLoadingFnSymbol = '__StopLoading__';
-export const ResponseFinishedSymbol = '__LoadingResponseFinished__';
+import type { PluginDefinition, RegistApi, Request, LoadingOptions } from '../types';
 
 const defaultOptions: LoadingOptions = {
   delay: 260,
@@ -15,10 +11,7 @@ const defaultOptions: LoadingOptions = {
  * @param request request promise
  * @param options catch error options
  */
-export function registLoading<Request extends (config: any) => FetchPromise<any>>(
-  request: Request,
-  options: LoadingOptions,
-): (config?: Partial<RequestConfig>) => FetchPromise<any> {
+export function registLoading(request: Request, options: LoadingOptions): Request {
   const curOptions = { ...defaultOptions, ...options };
   return (config) => {
     const loading = config?.loading;
@@ -50,16 +43,21 @@ export function registLoading<Request extends (config: any) => FetchPromise<any>
       })
       .catch((error) => {
         closeLoading?.();
-        return Promise.reject(error);
+        throw error;
       });
   };
 }
 
 /**
- * @internal
+ * 注入加载中插件
+ * 只在regist apis上运行 (and 自定义条件下)
+ * @param options 插件配置
  */
-declare module '@ace-fetch/core' {
-  interface RequestConfig {
-    [StopLoadingFnSymbol]?: typeof ResponseFinishedSymbol | ReturnType<LoadingHandler>;
-  }
-}
+export const createLoadingPlugin: PluginDefinition<LoadingOptions> =
+  (options = {}) =>
+  ({ registApis }) => {
+    return Object.keys(registApis).reduce((prev, key) => {
+      prev[key] = registLoading(registApis[key], options);
+      return prev;
+    }, {} as RegistApi);
+  };

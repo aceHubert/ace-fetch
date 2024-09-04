@@ -1,11 +1,10 @@
 import { warn } from '@ace-util/core';
+import { debug } from '@ace-fetch/core';
 import axios from 'axios';
-import { debug } from '../env';
 
 // Types
-import type { AxiosInstance } from 'axios';
-import type { RequestConfig, FetchPromise } from '@ace-fetch/core';
-import type { LoadingHandler, LoadingOptions } from '../types';
+import type { AxiosInstance, AxiosRequestConfig } from 'axios';
+import type { LoadingHandler, LoadingOptions } from '@ace-fetch/core';
 
 export const StopLoadingFnSymbol = '__StopLoading__';
 export const ResponseFinishedSymbol = '__LoadingResponseFinished__';
@@ -15,7 +14,7 @@ const defaultOptions: LoadingOptions = {
   handler: undefined,
 };
 
-function startLoading(config: RequestConfig, handler: LoadingHandler, delay: number) {
+function startLoading(config: AxiosRequestConfig, handler: LoadingHandler, delay: number) {
   if (delay > 0) {
     // delay
     setTimeout(() => {
@@ -27,7 +26,7 @@ function startLoading(config: RequestConfig, handler: LoadingHandler, delay: num
   }
 }
 
-function stopLoading(config: RequestConfig) {
+function stopLoading(config: AxiosRequestConfig) {
   const { [StopLoadingFnSymbol]: stopLoadingFnOrSymbol } = config;
   // 设置 response 已结束， delay 将不再执行 handler
   config[StopLoadingFnSymbol] = ResponseFinishedSymbol;
@@ -48,7 +47,7 @@ export function applyLoading(axiosInstance: AxiosInstance, options: LoadingOptio
   const curOptions = { ...defaultOptions, ...options };
 
   axiosInstance.interceptors.request.use((config) => {
-    const { loading } = config as RequestConfig;
+    const { loading } = config;
     let delay = curOptions.delay || 0;
     let loadingFn = curOptions.handler;
     // 如果有本地设置
@@ -101,55 +100,10 @@ export function applyLoading(axiosInstance: AxiosInstance, options: LoadingOptio
 }
 
 /**
- * regist loading plugin on current promise request
- * @param request request promise
- * @param options catch error options
- */
-export function registLoading<Request extends (config: any) => FetchPromise<any>>(
-  request: Request,
-  options: LoadingOptions,
-): (config?: Partial<RequestConfig>) => FetchPromise<any> {
-  const curOptions = { ...defaultOptions, ...options };
-  return (config) => {
-    const loading = config?.loading;
-    let delay = curOptions.delay || 0;
-    let showLoading = curOptions.handler;
-    // 如果有本地设置
-    if (loading && typeof loading !== 'boolean') {
-      if (typeof loading === 'function') {
-        showLoading = loading;
-      } else {
-        loading.delay !== void 0 && (delay = loading.delay);
-        showLoading = loading.handler;
-      }
-    }
-    const requestPromise = request(config);
-    const delaySymbol = typeof Symbol === 'function' && !!Symbol.for ? Symbol('__LOADING__') : '__LOADING__';
-    const delayPromise = new Promise((resolve) => setTimeout(() => resolve(delaySymbol), delay!));
-    let closeLoading: (() => void) | undefined;
-    // loading 设置为true 或本地定义时并且loading 函数被设置时启动
-    if (!!loading && showLoading) {
-      Promise.race([requestPromise, delayPromise]).then((result) => {
-        result === delaySymbol && (closeLoading = showLoading?.());
-      });
-    }
-    return requestPromise
-      .then((response) => {
-        closeLoading?.();
-        return response;
-      })
-      .catch((error) => {
-        closeLoading?.();
-        return Promise.reject(error);
-      });
-  };
-}
-
-/**
  * @internal
  */
-declare module '@ace-fetch/core' {
-  interface RequestConfig {
+declare module 'axios' {
+  interface AxiosRequestConfig {
     [StopLoadingFnSymbol]?: typeof ResponseFinishedSymbol | ReturnType<LoadingHandler>;
   }
 }

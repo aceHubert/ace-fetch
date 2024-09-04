@@ -8,9 +8,13 @@ import { Fetch } from '../types';
 declare module 'vue/types/vue' {
   interface Vue {
     /**
-     * Currently installed fetch instance.
+     * @deprecated Use `$apiFetch` instead.
      */
     $afetch: Fetch;
+    /**
+     * Currently installed fetch instance.
+     */
+    $apiFetch: Fetch;
   }
 }
 
@@ -18,10 +22,14 @@ declare module 'vue/types/vue' {
 declare module 'vue/types/options' {
   interface ComponentOptions<V> {
     /**
+     * @deprecated Use `apiFetch` instead.
+     */
+    afetch?: Fetch;
+    /**
      * Fetch instance to install in your application. Should be passed to the
      * root Vue.
      */
-    afetch?: Fetch;
+    apiFetch?: Fetch;
   }
 }
 
@@ -29,8 +37,12 @@ declare module 'vue/types/options' {
 declare module '@vue/runtime-core' {
   export interface ComponentCustomProperties {
     /**
-     * Access to the application's Fetch
+     * @deprecated Use `$apiFetch` instead.
      */
     $afetch: Fetch;
+    /**
+     * Access to the application's Fetch
+     */
+    $apiFetch: Fetch;
   }
 }

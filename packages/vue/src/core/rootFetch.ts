@@ -1,5 +1,5 @@
 import { getCurrentInstance, InjectionKey, inject } from 'vue-demi';
-import { debug } from '../env';
+import { debug } from '@ace-fetch/core';
 
 // Types
 import type { Fetch } from '../types';
@@ -13,7 +13,7 @@ export let activeFetch: Fetch | undefined;
 /**
  * inject key
  */
-export const fetchSymbol: InjectionKey<Fetch> = debug ? Symbol.for('__ACE_FETCH_VUE__') : Symbol();
+export const FetchInjectKey: InjectionKey<Fetch> = debug ? Symbol.for('__ACE_API_FETCH_VUE__') : Symbol();
 
 /**
  * Set or unset active fetch, Used in SSR and internally when calling
@@ -25,4 +25,4 @@ export const setActiveFetch = (fetch: Fetch | undefined) => (activeFetch = fetch
 /**
  * Get the currently active fetch if there is any.
  */
-export const getActiveFetch = () => (getCurrentInstance() && inject(fetchSymbol)) || activeFetch;
+export const getActiveFetch = () => (getCurrentInstance() && inject(FetchInjectKey)) || activeFetch;

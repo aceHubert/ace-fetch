@@ -1,5 +1,5 @@
 import { isVue2, markRaw } from 'vue-demi';
-import { fetchSymbol, setActiveFetch } from './rootFetch';
+import { FetchInjectKey, setActiveFetch } from './rootFetch';
 
 // Types
 import type { FetchClient, RegistApi } from '@ace-fetch/core';
@@ -17,8 +17,9 @@ export function createFetch(client: FetchClient): Fetch {
 
       if (!isVue2) {
         fetch._a = app;
-        app.provide(fetchSymbol, fetch);
+        app.provide(FetchInjectKey, fetch);
         app.config.globalProperties.$afetch = fetch;
+        app.config.globalProperties.$apiFetch = fetch;
 
         toBeInstalled.forEach((plugin) => _p.push(plugin));
         toBeInstalled = [];
