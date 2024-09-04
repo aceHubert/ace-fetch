@@ -2,7 +2,11 @@
 
 const fs = require('fs');
 const path = require('path');
+const util = require('util');
 const execa = require('execa');
+const childProcess = require('child_process');
+
+const execFileAsync = util.promisify(childProcess.execFile);
 
 async function genNewRelease() {
   const nextVersion = require('../lerna.json').version;
