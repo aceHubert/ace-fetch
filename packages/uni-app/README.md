@@ -25,16 +25,17 @@ npm i -S @ace-fetch/uni-app
 
 ```javascript
 import { createApp } from 'vue';
-import { createFetch, defineRegistApi } from '@ace-fetch/core';
-import { UinAppClient, createCatchErrorPlugin, createLoadingPlugin, createRetryPlugin } from '@ace-fetch/uni-app';
+import { createCatchErrorPlugin, createLoadingPlugin, createRetryPlugin } from '@ace-fetch/core'
+import { createFetch, defineRegistApi } from '@ace-fetch/vue';
+import { UinAppClient } from '@ace-fetch/uni-app';
 
 const client = new UinAppClient({
   withCredentials: true,
 });
 
-const afetch = createFetch(client);
+const apiFetch = createFetch(client);
 
-afetch.use(
+apiFetch.use(
   createCatchErrorPlugin({
     // 当接口通过body返回异常消息，可通过此方法判断
     // 注意：如果有全局自定义 interceptors，在 request 中不能改变返回的类型，data 参数为 AxiosResponse data 参数
@@ -54,7 +55,7 @@ afetch.use(
   })
 )
 
-afetch.use(
+apiFetch.use(
   createLoadingPlugin({
     delay: 260, // 延迟显示，如果接口在设置时间内返回则不调用handler方法
     handler: () => {
@@ -67,7 +68,7 @@ afetch.use(
   })
 )
 
-afetch.use(
+apiFetch.use(
   createRetryPlugin({
      maxCount: 3, // 重试次数
      delay: true, // 重试延迟
@@ -77,7 +78,7 @@ afetch.use(
 
 // 定义 registApi
 const useUserApi = defineRegistApi('user', {
-  apis: {
+  definition: {
     getUser: 'get /user',
   },
   plugins:[
@@ -97,19 +98,19 @@ const useApi = useUserApi();
 
 // 使用registApi
 useApi.getUser({
-  // loading 生效
+  // 全局 loading 生效
   loading: true,
 });
 
 // fetch.client 指向是 UinAppClient
-afetch.client.get('/user', {
-  // loading 不生效
+apiFetch.client.get('/user', {
+  // 全局 loading 不生效
   loading: true,
 });
 
 
 // 在Vue中使用请查看"@ace-fetch/vue"文档
 const app = createApp({});
-app.use(afetch);
+app.use(apiFetch);
 app.mount('#app');
 ```

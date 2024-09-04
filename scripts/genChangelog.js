@@ -24,9 +24,18 @@ const gen = (module.exports = async () => {
 });
 
 if (require.main === module) {
-  gen().catch(err => {
-    // eslint-disable-next-line no-console
-    console.error(err);
-    process.exit(1);
-  });
+  gen()
+    .then(() =>
+      execFileAsync('git', ['add', '--', path.resolve(__dirname, '../CHANGELOG.md')], {
+        cwd: process.cwd(),
+        env: process.env,
+        stdio: 'pipe',
+        encoding: 'utf-8',
+      }),
+    )
+    .catch((err) => {
+      // eslint-disable-next-line no-console
+      console.error(err);
+      process.exit(1);
+    });
 }

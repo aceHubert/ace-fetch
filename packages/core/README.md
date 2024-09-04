@@ -1,7 +1,6 @@
 ## @ace-fetch/core
 
 > Core fetch provider  
-> `Typescript` support
 
 ## 安装
 
@@ -19,7 +18,7 @@ npm i -S @ace-fetch/core
 ```javascript
 // 使用 axios 作为示例
 import axios from 'axios';
-import { regisApi } from '@ace-fetch/core';
+import { regisApi, createCatchErrorPlugin } from '@ace-fetch/core';
 
 // 创建 asiox 实例
 const axiosInstance = axios.create({
@@ -36,7 +35,7 @@ interface User{
 }
 
 // 定义 apis
-const userApi = registApi(axiosInstance, {
+let userApi = registApi(axiosInstance, {
   // 定义 api
   getUsers: 'get /users'
   // 或使用 typedUrl 函数在 typescript 中明确类型定义
@@ -52,6 +51,17 @@ const userApi = registApi(axiosInstance, {
   })`post /user`,
 }, prefix);
 
+// 应用插件
+userApi = createCatchErrorPlugin({
+  handler: (error) => {
+    // 处理异常
+    return new Promise((resolve) => {});
+  },
+})({
+  registApis: userApi
+})
+
+// 调用方法
 userApi.getUsers().then(({data})=>{ ... });
 // params 参数
 userApi.getUsers({ params: {id:1} }).then(({data})=>{  ... });

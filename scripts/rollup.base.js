@@ -3,12 +3,12 @@ import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
 // import typescript from 'rollup-plugin-typescript2';
+import terser from '@rollup/plugin-terser';
 import json from '@rollup/plugin-json';
 import externalGlobals from 'rollup-plugin-external-globals';
 import injectProcessEnv from 'rollup-plugin-inject-process-env';
 import dts from 'rollup-plugin-dts';
 import lisence from 'rollup-plugin-license';
-import { terser } from 'rollup-plugin-terser';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 
 const extensions = [...DEFAULT_EXTENSIONS, '.ts', '.tsx'];
@@ -102,7 +102,7 @@ export const removeImportStyleFromInputFilePlugin = () => ({
 export default (filename, targetName, externals = {}, sourcemap = true) => {
   function onwarn(warning, warn) {
     // ignoer 'this' rewrite with 'undefined' warn
-    if (warning.code === 'THIS_IS_UNDEFINED') return;
+    if (warning.code === 'THIS_IS_UNDEFINED' || warning.code === 'SOURCEMAP_ERROR') return;
     warn(warning); // this requires Rollup 0.46
   }
 

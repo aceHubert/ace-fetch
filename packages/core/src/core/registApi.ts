@@ -1,4 +1,4 @@
-import {
+import type {
   FetchClient,
   Method,
   MethodUrl,
@@ -43,7 +43,7 @@ function formatRequestPath(
  * @param keys string key or function, function first argument is request params
  * @returns the method url format function
  */
-export function typedUrl<R = any, P extends Record<string, any> = Record<string, any>, D = any>(
+export function typedUrl<R = any, P extends Record<string, any> = any, D = any>(
   strings: TemplateStringsArray,
   ...keys: Array<string | Function>
 ): MethodUrlFn<R, P, D>;
@@ -52,7 +52,7 @@ export function typedUrl<R = any, P extends Record<string, any> = Record<string,
  * @param config local config object
  * @returns template literals function
  */
-export function typedUrl<R = any, P extends Record<string, any> = Record<string, any>, D = any>(
+export function typedUrl<R = any, P extends Record<string, any> = any, D = any>(
   config: Partial<RequestConfig>,
 ): (strings: TemplateStringsArray, ...keys: Array<string | Function>) => MethodUrlFn<R, P, D>;
 export function typedUrl<R, P extends Record<string, any>, D>(
@@ -76,38 +76,39 @@ export function typedUrl<R, P extends Record<string, any>, D>(
 /**
  * register api
  * @param client fetch client
- * @param apis  typed urls
+ * @param definition  typed request definition
  * @param prefix base url
  * @returns named fetch requests
  */
 export function registApi<C extends Record<string, MethodUrl>>(
   client: FetchClient,
-  apis: C,
+  definition: C,
   prefix?: string,
 ): RegistApi<C>;
 /**
  * register api for plugin use
+ * @internal
  * @param client fetch client
- * @param apis  typed urls
+ * @param definition  typed request definition
  * @param prefix base url
  * @param id regist id
  * @returns named fetch requests
  */
 export function registApi<C extends Record<string, MethodUrl>>(
   client: FetchClient,
-  apis: C,
+  definition: C,
   prefix?: string,
   id?: string,
 ): RegistApi<C>;
 export function registApi<C extends Record<string, MethodUrl>>(
   client: FetchClient,
-  apis: C,
+  definition: C,
   prefix?: string,
   id?: string,
 ): RegistApi<C> {
   const result = {} as RegistApi<C>;
-  Object.keys(apis).forEach((methodName) => {
-    const methodUrl = apis[methodName];
+  Object.keys(definition).forEach((methodName) => {
+    const methodUrl = definition[methodName];
     result[methodName as keyof C] = transfromToRequest(client.request.bind(client), methodUrl, prefix, id) as any;
   });
   return result;
@@ -196,4 +197,16 @@ function transfromToRequest(
 
     return request(requestConfig);
   };
+}
+
+/**
+ * @internal
+ */
+declare module '../types' {
+  export interface RequestConfig {
+    /**
+     * From 'registApi' unique id
+     */
+    _registId?: string;
+  }
 }

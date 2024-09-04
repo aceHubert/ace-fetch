@@ -1,5 +1,5 @@
 import type { App } from 'vue-demi';
-import type { MethodUrl, RegistApi, FetchClient } from '@ace-fetch/core';
+import type { MethodUrl, RegistApi, FetchClient, PluginDefinition } from '@ace-fetch/core';
 
 export interface Fetch {
   /**
@@ -33,43 +33,6 @@ export interface Fetch {
 }
 
 /**
- * Context argument passed to RegistApiPlugins.
- */
-export interface RegisterPluginContext<C extends Record<string, MethodUrl> = any> {
-  /**
-   * Register id
-   */
-  id: string;
-  /**
-   * Fetch
-   */
-  fetch: Fetch;
-  /**
-   * Current app created with `Vue.createApp()`.
-   */
-  app: App;
-  /**
-   * regist apis
-   */
-  registApis: RegistApi<C>;
-  /**
-   * regist api options
-   */
-  options: DefineRegistApiOptionsInPlugin<C>;
-}
-
-/**
- * Plugin to extend every store.
- */
-export interface RegistApiPlugin {
-  /**
-   * Plugin to extend every registApi.
-   * @param context - RegisterPluginContext
-   */
-  (context: RegisterPluginContext): Partial<RegistApiCustomProperties> | void;
-}
-
-/**
  *  'defineRegistApi' options
  */
 export interface DefineRegistApiOptions<C extends Record<string, MethodUrl>> {
@@ -79,6 +42,11 @@ export interface DefineRegistApiOptions<C extends Record<string, MethodUrl>> {
   id: string;
   /**
    * Register api object
+   * @deprecated use `definition` instead
+   */
+  apis: C;
+  /**
+   * Api definition
    * example: {
    *  getUsers: typedUrl<User[]>`get /users`,
    *  getUser: typedUrl<User, { id: string | number }>`/user/${'id'}`,
@@ -86,7 +54,7 @@ export interface DefineRegistApiOptions<C extends Record<string, MethodUrl>> {
    *  updateFile: typedUrl<string>({headers:{'content-type':'form-data'}})`post /upload/image`
    * }
    */
-  apis: C;
+  definition: C;
   /**
    * Base URL
    */
@@ -98,19 +66,43 @@ export interface DefineRegistApiOptions<C extends Record<string, MethodUrl>> {
 }
 
 /**
- * Options use for plugin
+ * Use regist api definition
+ */
+export interface UseRegistApiDefinition<C extends Record<string, MethodUrl>> {
+  (fetch?: Fetch): RegistApi<C>;
+}
+
+/**
+ * Plugin to extend every store.
+ */
+export type RegistApiPlugin = ReturnType<PluginDefinition<any>>;
+
+/**
+ * Plugin extended options
  */
 export interface DefineRegistApiOptionsInPlugin<C extends Record<string, MethodUrl>>
   extends Omit<DefineRegistApiOptions<C>, 'id'> {}
 
-/**
- * Custom registApis properties extends from plugin
- */
-export interface RegistApiCustomProperties<C extends Record<string, MethodUrl> = {}> {}
-
-/**
- * Return type of 'defineRegistApi' result
- */
-export interface RegistApiDefinition<C extends Record<string, MethodUrl>> {
-  (fetch?: Fetch): RegistApi<C>;
+declare module '@ace-fetch/core' {
+  /**
+   * Context argument passed to RegistApiPlugins.
+   */
+  export interface RegisterPluginContext<C extends Record<string, MethodUrl> = Record<string, MethodUrl>> {
+    /**
+     * Register id
+     */
+    id: string;
+    /**
+     * Fetch
+     */
+    fetch: Fetch;
+    /**
+     * Current app created with `Vue.createApp()`.
+     */
+    app: App;
+    /**
+     * regist api options
+     */
+    options: DefineRegistApiOptionsInPlugin<C>;
+  }
 }

@@ -1,14 +1,13 @@
-## @ace-fetch/core
+## @ace-fetch/graphql
 
-> Core fetch provider  
-> `Typescript` support
+> Graphql fetch provider  
 
 ## 安装
 
 ```bash
-yarn add @ace-fetch/core
+yarn add @ace-fetch/graphql
 或者
-npm i -S @ace-fetch/core
+npm i -S @ace-fetch/graphql
 ```
 
 <br>
@@ -17,16 +16,9 @@ npm i -S @ace-fetch/core
 
 
 ```javascript
-// 使用 axios 作为示例
-import axios from 'axios';
-import { regisApi } from '@ace-fetch/core';
-
-// 创建 asiox 实例
-const axiosInstance = axios.create({
-  timeout: 5000
-})
-
-const prefix = 'http://api/base_url/'
+import { regisApi, TypedQueryDocumentNode } from '@ace-fetch/graphql';
+import { ApolloClient } from '@apollo/client';
+import { gql } from 'graphql-tag';
 
 interface User{
   id: number;
@@ -35,27 +27,52 @@ interface User{
   city: string;
 }
 
-// 定义 apis
-const userApi = registApi(axiosInstance, {
-  // 定义 api
-  getUsers: 'get /users'
-  // 或使用 typedUrl 函数在 typescript 中明确类型定义
-  getUsers: typedUrl<User[]>`get /users`,
-  // get 可以省略
-  // 通过字符串获取 params 中的变量拼接 url
-  getUser: typedUrl<User, { id: string | number }>`/user/${'id'}`,
-  // 或者通过函数拼接url
-  getUser: typedUrl<User, { id: string | number }>`/user/${(params)=> params.id}`,
-  // typedUrl 可以是函数传 RequestConfig 作为当前请求的定义
-  addUser: typedUrl<User, any, Partial<Omit<User, 'id'>>>({
-    timeout: 10000
-  })`post /user`,
-}, prefix);
+const client = new ApolloClient({
+  uri: 'http://localhost:3000/graphql',
+  cache: new InMemoryCache()
+});
 
-userApi.getUsers().then(({data})=>{ ... });
-// params 参数
-userApi.getUsers({ params: {id:1} }).then(({data})=>{  ... });
-// body 参数
-userApi.addUser({ data: { firstName:'San', lastName: 'Zhang', city: 'BeiJing' }}).then(({data})=>{  ... });
+// 定义 apis
+const userApi = registGraphql(client, {
+  // 定义 api
+  getUsers: gql`
+    query getUsers($page: Int, $size: Int){
+      users(page: $page, size: $size){
+        id
+        firstName
+        lastName
+        city
+      }
+    }
+  ` as TypedQueryDocumentNode<{users: User[]},{page?: number, size?: number}>,
+  getUser: gql`
+    query getUser($id: Int){
+      user(id: $id){
+        id
+        firstName
+        lastName
+        city
+      }
+    }
+  ` as TypedQueryDocumentNode<{user: User}, {id?: number}>,
+  // typedUrl 可以是函数传 RequestConfig 作为当前请求的定义
+  addUser: gql`
+    mutation addUser($firstName: String!, $lastName: String!, $city: String!){
+      addUser(firstName: $firstName, lastName: $lastName, city: $city){
+        id
+        firstName
+        lastName
+        city
+      }
+    }
+  ` as TypedQueryDocumentNode<User, {firstName: string, lastName: string, city: string}>
+});
+
+// 调用
+userApi.getUsers().then(({users})=>{ ... });
+// query
+userApi.getUsers({ variables: {id:1} }).then(({user})=>{  ... });
+// mutation
+userApi.addUser({ variables: { firstName:'San', lastName: 'Zhang', city: 'BeiJing' }}).then(({user})=>{  ... });
 
 ```

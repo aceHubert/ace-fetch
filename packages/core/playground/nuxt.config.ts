@@ -1,3 +1,4 @@
+import { fileURLToPath, URL } from 'node:url';
 import { defineNuxtConfig } from 'nuxt/config';
 
 export default defineNuxtConfig({
@@ -5,5 +6,7 @@ export default defineNuxtConfig({
   build: {
     transpile: ['@ace-fetch/core'],
   },
-  compatibilityDate: '2024-07-19',
+  alias: {
+    '@ace-fetch/core': fileURLToPath(new URL('..//src', import.meta.url)),
+  },
 });

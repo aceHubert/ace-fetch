@@ -16,7 +16,7 @@ export const userApi = registApi(
   axiosInstance,
   {
     getUsers: typedUrl<User[]>`get /users`,
-    getUser: typedUrl<User, { id: string | number }>`/user/${(params:{id:string}) => params.id}`,
+    getUser: typedUrl<User, { id: string | number }>`/user/${(params: { id: string }) => params.id}`,
     addUser: typedUrl<User, any, Partial<Omit<User, 'id'>>>`post /user`,
     delUser: typedUrl<never, { id: string | number }>`delete /user/${'id'}`,
   },

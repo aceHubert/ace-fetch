@@ -1,11 +1,10 @@
 import { getCurrentInstance, inject } from 'vue-demi';
-import { registApi } from '@ace-fetch/core';
-import { debug } from '../env';
-import { fetchSymbol, setActiveFetch, activeFetch } from './rootFetch';
+import { registApi, debug } from '@ace-fetch/core';
+import { FetchInjectKey, setActiveFetch, activeFetch } from './rootFetch';
 
 // Types
 import type { MethodUrl, RegistApi } from '@ace-fetch/core';
-import type { DefineRegistApiOptions, DefineRegistApiOptionsInPlugin, RegistApiDefinition, Fetch } from '../types';
+import type { DefineRegistApiOptions, DefineRegistApiOptionsInPlugin, UseRegistApiDefinition, Fetch } from '../types';
 
 /**
  * regist apis definition
@@ -15,18 +14,18 @@ import type { DefineRegistApiOptions, DefineRegistApiOptionsInPlugin, RegistApiD
 export function defineRegistApi<C extends Record<string, MethodUrl>>(
   id: string,
   options: Omit<DefineRegistApiOptions<C>, 'id'>,
-): RegistApiDefinition<C>;
+): UseRegistApiDefinition<C>;
 /**
  * regist apis definition
  * @param options
  */
 export function defineRegistApi<C extends Record<string, MethodUrl>>(
   options: DefineRegistApiOptions<C>,
-): RegistApiDefinition<C>;
+): UseRegistApiDefinition<C>;
 export function defineRegistApi<C extends Record<string, MethodUrl>>(
   idOrOptions: string | DefineRegistApiOptions<C>,
   registOptions?: Omit<DefineRegistApiOptions<C>, 'id'>,
-): RegistApiDefinition<C> {
+): UseRegistApiDefinition<C> {
   let id: string;
   let options: Omit<DefineRegistApiOptions<C>, 'id'>;
 
@@ -44,7 +43,7 @@ export function defineRegistApi<C extends Record<string, MethodUrl>>(
   function useRegistApi(fetch?: Fetch) {
     const currentInstance = getCurrentInstance();
 
-    fetch = fetch || (currentInstance && inject(fetchSymbol)) || undefined;
+    fetch = fetch || (currentInstance && inject(FetchInjectKey)) || undefined;
     if (fetch) setActiveFetch(fetch);
 
     if (debug && !activeFetch) {
@@ -60,7 +59,7 @@ export function defineRegistApi<C extends Record<string, MethodUrl>>(
 
     if (!fetch._r.has(id)) {
       // creating regist apis register it to 'fetch._r'
-      const registApis = registApi(fetch.client, options.apis, options.prefix, id);
+      const registApis = registApi(fetch.client, options.definition || options.apis, options.prefix, id);
 
       // apply all local plugins
       options.plugins?.forEach((extender) => {

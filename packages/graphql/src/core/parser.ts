@@ -3,23 +3,13 @@
  * for using without react
  */
 import { invariant } from 'ts-invariant';
+import { DocumentType } from '../constants';
 
 // Types
-import type { DocumentNode, DefinitionNode, VariableDefinitionNode, OperationDefinitionNode } from 'graphql';
+import type { DocumentNode, DefinitionNode, OperationDefinitionNode } from 'graphql';
+import type { IDocumentDefinition } from '../types';
 
-export enum DocumentType {
-  Query,
-  Mutation,
-  Subscription,
-}
-
-export interface IDocumentDefinition {
-  type: DocumentType;
-  name: string;
-  variables: ReadonlyArray<VariableDefinitionNode>;
-}
-
-const cache = new Map();
+const cache = new WeakMap();
 
 export function operationName(type: DocumentType) {
   let name;
