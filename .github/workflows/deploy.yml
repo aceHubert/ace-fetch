@@ -55,7 +55,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish
         run: |
-          npx lerna publish --yes
+          npx lerna publish --yes --conventional-commits --conventional-graduate
         env:
           GITHUB_AUTH: ${{ secrets.GITHUB_TOKEN }}
           # https://github.com/renovatebot/renovate/discussions/9481?sort=old#discussioncomment-660412
