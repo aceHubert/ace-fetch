@@ -40,7 +40,7 @@
     "esm"
   ],
   "scripts": {
-    "serve": "run -T tsc --project tsconfig.build.json --module es2015 --declaration --declarationDir types --outDir esm -watch",
+    "serve": "run -T tsc --project tsconfig.build.json --module es2015 --declaration --outDir esm -watch",
     "build": "run -T rimraf -rf lib esm dist && yarn build:version && yarn build:cjs && yarn build:esm && yarn build:umd",
     "build:version": "node -p \"'export const version: string = ' + JSON.stringify(require('./package.json').version) + ';'\" > src/version.ts",
     "build:cjs": "run -T tsc --project tsconfig.build.json",
