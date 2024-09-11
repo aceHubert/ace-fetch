@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.3](https://github.com/aceHubert/ace-fetch/compare/v0.5.2...v0.5.3) (2024-09-11)
+
+### Bug Fixes
+
+- type fix ([3e192fd](https://github.com/aceHubert/ace-fetch/commit/3e192fd1a0b61620ef8f09a44b5f6535e766f994))
+
 ## [0.5.2](https://github.com/aceHubert/ace-fetch/compare/v0.5.1...v0.5.2) (2024-09-11)
 
 ### Bug Fixes

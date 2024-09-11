@@ -1,6 +1,6 @@
 {
   "name": "@ace-fetch/vue",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "author": "Hubert<yi.xiang@live.com>",
   "description": "vue adapter for @ace-fetch/core.",
   "main": "lib/index.js",
@@ -65,7 +65,7 @@
     "url": "https://github.com/aceHubert/ace-fetch/issues"
   },
   "dependencies": {
-    "@ace-fetch/core": "^0.5.1",
+    "@ace-fetch/core": "^0.5.3",
     "@ace-util/core": "^0.3.0",
     "vue-demi": "^*"
   },

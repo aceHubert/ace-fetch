@@ -1,6 +1,6 @@
 {
   "name": "@ace-fetch/graphql-vue",
-  "version": "0.5.0",
+  "version": "0.5.3",
   "author": "Hubert<yi.xiang@live.com>",
   "description": "vue adapter for @ace-fetch/graphql.",
   "main": "lib/index.js",
