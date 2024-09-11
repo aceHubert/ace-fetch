@@ -1,3 +1,7 @@
+import { isPlainObject } from '@ace-util/core';
+import queryString from 'query-string';
+
+// Types
 import type {
   FetchClient,
   Method,
@@ -7,10 +11,11 @@ import type {
   RequestDefinition,
   RegistApi,
   RequestConfig,
+  RequestType,
   FetchPromise,
 } from '../types';
 
-const REQUEST_HEADERS = {
+const REQUEST_HEADERS: Record<RequestType, Record<string, any>> = {
   form: { 'Content-Type': 'application/x-www-form-urlencoded' },
   json: { 'Content-Type': 'application/json;charset=utf-8' },
 };
@@ -186,6 +191,10 @@ function transfromToRequest(
       (prefix.endsWith('/') ? prefix : `${prefix}/`) + (urlPath.startsWith('/') ? urlPath.substring(1) : urlPath);
     requestConfig.url = url;
     requestConfig.method = method as Method;
+    // form data serialize
+    if (requestType === 'form' && isPlainObject(requestConfig.data)) {
+      requestConfig.data = queryString.stringify(requestConfig.data);
+    }
     // headers 默认值设置
     requestConfig.headers = {
       ...(REQUEST_HEADERS[requestType || 'json'] || {}),
