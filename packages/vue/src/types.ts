@@ -1,6 +1,9 @@
 import type { App } from 'vue-demi';
 import type { MethodUrl, RegistApi, FetchClient, PluginDefinition } from '@ace-fetch/core';
 
+type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
+type XOR<T, U> = T | U extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
+
 export interface Fetch {
   /**
    * Install fetch plugin
@@ -35,26 +38,12 @@ export interface Fetch {
 /**
  *  'defineRegistApi' options
  */
-export interface DefineRegistApiOptions<C extends Record<string, MethodUrl>> {
+export type DefineRegistApiOptions<C extends Record<string, MethodUrl>> = {
   /**
    * Cached id
    */
   id: string;
-  /**
-   * Register api object
-   * @deprecated use `definition` instead
-   */
-  apis: C;
-  /**
-   * Api definition
-   * example: {
-   *  getUsers: typedUrl<User[]>`get /users`,
-   *  getUser: typedUrl<User, { id: string | number }>`/user/${'id'}`,
-   *  addUser: typedUrl<User, any, Partial<Omit<User, 'id'>>>`post /user`,
-   *  updateFile: typedUrl<string>({headers:{'content-type':'form-data'}})`post /upload/image`
-   * }
-   */
-  definition: C;
+
   /**
    * Base URL
    */
@@ -63,7 +52,27 @@ export interface DefineRegistApiOptions<C extends Record<string, MethodUrl>> {
    * Plugins apply current registApis
    */
   plugins?: RegistApiPlugin[];
-}
+} & XOR<
+  {
+    /**
+     * Register api object
+     * @deprecated use `definition` instead
+     */
+    apis: C;
+  },
+  {
+    /**
+     * Api definition
+     * example: {
+     *  getUsers: typedUrl<User[]>`get /users`,
+     *  getUser: typedUrl<User, { id: string | number }>`/user/${'id'}`,
+     *  addUser: typedUrl<User, any, Partial<Omit<User, 'id'>>>`post /user`,
+     *  updateFile: typedUrl<string>({headers:{'content-type':'form-data'}})`post /upload/image`
+     * }
+     */
+    definition: C;
+  }
+>;
 
 /**
  * Use regist api definition
