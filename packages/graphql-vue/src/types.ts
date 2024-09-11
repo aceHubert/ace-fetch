@@ -34,7 +34,7 @@ export interface Fetch {
    * stored regist graphqls
    * @internal
    */
-  _r: Map<string, RegistGraphql<any>>;
+  _r: Map<string | Symbol, RegistGraphql<any>>;
 }
 
 /**
@@ -43,10 +43,6 @@ export interface Fetch {
 export interface DefineRegistGraphqlOptions<
   C extends Record<string, TypedDocumentNode<any, any>> = DefaultRegistGraphqlDefinition,
 > {
-  /**
-   * Cached id
-   */
-  id: string;
   /**
    * Register graphql object
    */
@@ -93,7 +89,7 @@ declare module '@ace-fetch/graphql' {
     /**
      * Register id
      */
-    id: string;
+    id: string | Symbol;
     /**
      * Fetch
      */

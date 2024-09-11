@@ -14,28 +14,29 @@ import type {
 
 /**
  * regist graphqls definition
- * @param id
- * @param options
+ * @param {string|Symbol} id Regist id
+ * @param {Object} options Regist options
  */
 export function defineRegistGraphql<C extends Record<string, TypedDocumentNode<any, any>>>(
-  id: string,
-  options: Omit<DefineRegistGraphqlOptions<C>, 'id'>,
+  id: string | Symbol,
+  options: DefineRegistGraphqlOptions<C>,
 ): UseRegistGraphqlDefinition<C>;
 /**
  * regist graphqls definition
- * @param options
+ * @param {Object} options Regist options
+ * @param {string|Symbol} options.id Regist id
  */
 export function defineRegistGraphql<C extends Record<string, TypedDocumentNode<any, any>>>(
-  options: DefineRegistGraphqlOptions<C>,
+  options: DefineRegistGraphqlOptions<C> & { id: string | Symbol },
 ): UseRegistGraphqlDefinition<C>;
 export function defineRegistGraphql<C extends Record<string, TypedDocumentNode<any, any>>>(
-  idOrOptions: string | DefineRegistGraphqlOptions<C>,
+  idOrOptions: string | Symbol | (DefineRegistGraphqlOptions<C> & { id: string | Symbol }),
   registOptions?: Omit<DefineRegistGraphqlOptions<C>, 'id'>,
 ): UseRegistGraphqlDefinition<C> {
-  let id: string;
-  let options: Omit<DefineRegistGraphqlOptions<C>, 'id'>;
+  let id: string | Symbol;
+  let options: DefineRegistGraphqlOptions<C>;
 
-  if (typeof idOrOptions === 'string') {
+  if (typeof idOrOptions === 'string' || idOrOptions instanceof Symbol) {
     id = idOrOptions;
     options = registOptions!;
   } else {
