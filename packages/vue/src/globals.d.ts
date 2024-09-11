@@ -7,7 +7,7 @@ declare module '@ace-fetch/core' {
     client: FetchClient,
     apis: C,
     prefix?: string,
-    id?: string,
+    id?: string | Symbol,
   ): RegistApi<C>;
 }
 

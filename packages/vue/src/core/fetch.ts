@@ -8,28 +8,29 @@ import type { DefineRegistApiOptions, DefineRegistApiOptionsInPlugin, UseRegistA
 
 /**
  * regist apis definition
- * @param id
- * @param options
+ * @param {string|Symbol} id Regist id
+ * @param {object} options Regist options
  */
 export function defineRegistApi<C extends Record<string, MethodUrl>>(
-  id: string,
-  options: Omit<DefineRegistApiOptions<C>, 'id'>,
+  id: string | Symbol,
+  options: DefineRegistApiOptions<C>,
 ): UseRegistApiDefinition<C>;
 /**
  * regist apis definition
- * @param options
+ * @param {Object} options Regist options
+ * @param {string|Symbol} options.id Regist id
  */
 export function defineRegistApi<C extends Record<string, MethodUrl>>(
-  options: DefineRegistApiOptions<C>,
+  options: DefineRegistApiOptions<C> & { id: string | Symbol },
 ): UseRegistApiDefinition<C>;
 export function defineRegistApi<C extends Record<string, MethodUrl>>(
-  idOrOptions: string | DefineRegistApiOptions<C>,
-  registOptions?: Omit<DefineRegistApiOptions<C>, 'id'>,
+  idOrOptions: string | Symbol | (DefineRegistApiOptions<C> & { id: string | Symbol }),
+  registOptions?: DefineRegistApiOptions<C>,
 ): UseRegistApiDefinition<C> {
-  let id: string;
-  let options: Omit<DefineRegistApiOptions<C>, 'id'>;
+  let id: string | Symbol;
+  let options: DefineRegistApiOptions<C>;
 
-  if (typeof idOrOptions === 'string') {
+  if (typeof idOrOptions === 'string' || idOrOptions instanceof Symbol) {
     id = idOrOptions;
     options = registOptions!;
   } else {

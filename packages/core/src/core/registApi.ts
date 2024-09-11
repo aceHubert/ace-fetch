@@ -103,13 +103,13 @@ export function registApi<C extends Record<string, MethodUrl>>(
   client: FetchClient,
   definition: C,
   prefix?: string,
-  id?: string,
+  id?: string | Symbol,
 ): RegistApi<C>;
 export function registApi<C extends Record<string, MethodUrl>>(
   client: FetchClient,
   definition: C,
   prefix?: string,
-  id?: string,
+  id?: string | Symbol,
 ): RegistApi<C> {
   const result = {} as RegistApi<C>;
   Object.keys(definition).forEach((methodName) => {
@@ -155,7 +155,7 @@ function transfromToRequest(
   request: (config: RequestConfig) => FetchPromise,
   methodUrl: MethodUrl,
   prefix = '',
-  id?: string,
+  id?: string | Symbol,
 ): RequestDefinition<MethodUrl> {
   return (config: Partial<RequestConfig> = {}) => {
     let { requestType, ...requestConfig } = config;
@@ -216,6 +216,6 @@ declare module '../types' {
     /**
      * From 'registApi' unique id
      */
-    _registId?: string;
+    _registId?: string | Symbol;
   }
 }

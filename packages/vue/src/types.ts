@@ -32,18 +32,13 @@ export interface Fetch {
    * stored regist apis
    * @internal
    */
-  _r: Map<string, RegistApi<any>>;
+  _r: Map<string | Symbol, RegistApi<any>>;
 }
 
 /**
  *  'defineRegistApi' options
  */
 export type DefineRegistApiOptions<C extends Record<string, MethodUrl>> = {
-  /**
-   * Cached id
-   */
-  id: string;
-
   /**
    * Base URL
    */
@@ -55,15 +50,8 @@ export type DefineRegistApiOptions<C extends Record<string, MethodUrl>> = {
 } & XOR<
   {
     /**
-     * Register api object
-     * @deprecated use `definition` instead
-     */
-    apis: C;
-  },
-  {
-    /**
      * Api definition
-     * example: {
+     * @example {
      *  getUsers: typedUrl<User[]>`get /users`,
      *  getUser: typedUrl<User, { id: string | number }>`/user/${'id'}`,
      *  addUser: typedUrl<User, any, Partial<Omit<User, 'id'>>>`post /user`,
@@ -71,6 +59,13 @@ export type DefineRegistApiOptions<C extends Record<string, MethodUrl>> = {
      * }
      */
     definition: C;
+  },
+  {
+    /**
+     * Register api object
+     * @deprecated use `definition` instead
+     */
+    apis: C;
   }
 >;
 
@@ -100,7 +95,7 @@ declare module '@ace-fetch/core' {
     /**
      * Register id
      */
-    id: string;
+    id: string | Symbol;
     /**
      * Fetch
      */
