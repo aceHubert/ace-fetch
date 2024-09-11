@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.2](https://github.com/aceHubert/ace-fetch/compare/v0.5.1...v0.5.2) (2024-09-11)
+
+### Bug Fixes
+
+- package vue definition/apis type error ([2aa280c](https://github.com/aceHubert/ace-fetch/commit/2aa280c1114e578054b6e5dbae9db9a92af9f1ce))
+
 ## [0.5.1](https://github.com/aceHubert/ace-fetch/compare/v0.5.0...v0.5.1) (2024-09-11)
 
 **Note:** Version bump only for package @ace-fetch/vue
