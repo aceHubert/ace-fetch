@@ -59,7 +59,7 @@ export function defineRegistApi<C extends Record<string, MethodUrl>>(
 
     if (!fetch._r.has(id)) {
       // creating regist apis register it to 'fetch._r'
-      const registApis = registApi(fetch.client, options.definition || options.apis, options.prefix, id);
+      const registApis = registApi(fetch.client, options.definition || options.apis!, options.prefix, id);
 
       // apply all local plugins
       options.plugins?.forEach((extender) => {
