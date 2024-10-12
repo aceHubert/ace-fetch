@@ -23,7 +23,7 @@ function catchErrorHandler(
     return handler?.(error);
   }
 
-  throw error;
+  return Promise.reject(error);
 }
 
 /**
