@@ -31,7 +31,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ace-fetch/graphql-vue@workspace:packages/graphql-vue"
   dependencies:
-    "@ace-fetch/graphql": ^0.5.0
+    "@ace-fetch/graphql": ^0.5.4
     "@ace-util/core": ^0.3.0
     "@apollo/client": ^3.0.0
     graphql: ^16.9.0
@@ -40,7 +40,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ace-fetch/graphql@^0.5.0, @ace-fetch/graphql@workspace:packages/graphql":
+"@ace-fetch/graphql@^0.5.4, @ace-fetch/graphql@workspace:packages/graphql":
   version: 0.0.0-use.local
   resolution: "@ace-fetch/graphql@workspace:packages/graphql"
   dependencies:
