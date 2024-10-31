@@ -36,6 +36,10 @@ export interface RequestConfig<D = any> {
   headers?: any;
   params?: any;
   data?: D;
+  /**
+   * set Content-Type header
+   * @default 'json'
+   */
   requestType?: RequestType;
 }
 

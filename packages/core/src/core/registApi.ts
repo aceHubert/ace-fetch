@@ -1,6 +1,3 @@
-import { isPlainObject } from '@ace-util/core';
-import queryString from 'query-string';
-
 // Types
 import type {
   FetchClient,
@@ -191,10 +188,7 @@ function transfromToRequest(
       (prefix.endsWith('/') ? prefix : `${prefix}/`) + (urlPath.startsWith('/') ? urlPath.substring(1) : urlPath);
     requestConfig.url = url;
     requestConfig.method = method as Method;
-    // form data serialize
-    if (requestType === 'form' && isPlainObject(requestConfig.data)) {
-      requestConfig.data = queryString.stringify(requestConfig.data);
-    }
+
     // headers 默认值设置
     requestConfig.headers = {
       ...(REQUEST_HEADERS[requestType || 'json'] || {}),
