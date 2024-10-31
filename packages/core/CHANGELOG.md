@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.5.5](https://github.com/aceHubert/ace-fetch/compare/v0.5.4...v0.5.5) (2024-10-31)
+
+### Bug Fixes
+
+- remove form data serialize ([cd87498](https://github.com/aceHubert/ace-fetch/commit/cd874984d98098e8149d374f59d431f2604d1211))
+
 ## [0.5.3](https://github.com/aceHubert/ace-fetch/compare/v0.5.2...v0.5.3) (2024-09-11)
 
 ### Bug Fixes
