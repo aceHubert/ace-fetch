@@ -1,5 +1,23 @@
 // Types
-import type { PluginDefinition, RegistApi, Request, LoadingOptions } from '../types';
+import type { PluginDefinition, RegistApi, Request } from '../types';
+
+/**
+ * loading handler,
+ * @return unloading handler
+ */
+export type LoadingHandler = () => () => void;
+
+export type LoadingOptions = {
+  /**
+   * delay (ms)
+   * @default 260
+   */
+  delay?: number;
+  /**
+   * custom loading handler
+   */
+  handler?: LoadingHandler;
+};
 
 const defaultOptions: LoadingOptions = {
   delay: 260,
@@ -61,3 +79,18 @@ export const createLoadingPlugin: PluginDefinition<LoadingOptions> =
       return prev;
     }, {} as RegistApi);
   };
+
+declare module '../types' {
+  export interface RequestCustomConfig {
+    /**
+     * enable loading
+     * or custom loading handler/options
+     * @default false
+     */
+    loading?: boolean | LoadingHandler | Required<LoadingOptions>;
+    /**
+     * loading text
+     */
+    loadingText?: string;
+  }
+}
