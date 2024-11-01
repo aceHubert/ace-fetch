@@ -2,7 +2,30 @@ import { promisify, warn } from '@ace-util/core';
 import { debug } from '../env';
 
 // Types
-import type { PluginDefinition, RegistApi, Request, RequestCustomConfig, CatchErrorOptions } from '../types';
+import type { PluginDefinition, RegistApi, Request, RequestCustomConfig } from '../types';
+
+/**
+ * catch error options
+ */
+export type CatchErrorOptions = {
+  /**
+   * when error in response.body
+   * throw error to handler with `Promise.reject(error)`
+   * @deprecated axios use interceptors.response.use to change response type would cause an error, use `serializerResponse` instead.
+   */
+  serializerData?: <T = any, R = T>(data: T) => R | Promise<R>;
+  /**
+   * when error in response.body, example: {code: 0, message: 'error message'}
+   * throw error to handler with `Promise.reject(error)`
+   * @param response
+   * @returns
+   */
+  serializerResponse?: <T = any, R = T>(response: T) => R | Promise<R>;
+  /**
+   * error catch handler
+   */
+  handler?: (error: any) => Promise<any>;
+};
 
 const defaultOptions: CatchErrorOptions = {
   handler: (error) => {
@@ -41,6 +64,7 @@ export function registCatchError(request: Request, options: CatchErrorOptions = 
         }
 
         if (curOptions.serializerData) {
+          warn(false, 'serializerData is deprecated, please use serializerResponse instead');
           const data = await promisify(curOptions.serializerData(response.data));
           response.data = data;
           return response;
@@ -67,3 +91,14 @@ export const createCatchErrorPlugin: PluginDefinition<CatchErrorOptions> =
       return prev;
     }, {} as RegistApi);
   };
+
+declare module '../types' {
+  export interface RequestCustomConfig {
+    /**
+     * enable catch error
+     * or catch error by Promise.catch locally
+     * @default false
+     */
+    catchError?: boolean;
+  }
+}

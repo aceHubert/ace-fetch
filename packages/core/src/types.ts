@@ -1,3 +1,5 @@
+import { StringifyOptions } from 'query-string';
+
 export type Method =
   | 'get'
   | 'GET'
@@ -41,6 +43,12 @@ export interface RequestConfig<D = any> {
    * @default 'json'
    */
   requestType?: RequestType;
+  /**
+   * serializer request data
+   * @param data request data
+   * @param requestType  request type
+   */
+  dataSerializer?: <T = any, R = T>(data: T, requestType: RequestType, options?: StringifyOptions) => R;
 }
 
 /**
@@ -99,94 +107,9 @@ type CheckNever<T> = T extends never ? 'yes' : 'no';
 type CheckAny<T> = CheckNever<T> extends 'no' ? 'no' : 'yes';
 
 /**
- * catch error options
+ * request custom config
  */
-export type CatchErrorOptions = {
-  /**
-   * when error in response.body
-   * throw error to handler with `Promise.reject(error)`
-   * @deprecated axios use interceptors.response.use to change response type would cause an error, use `serializerResponse` instead.
-   */
-  serializerData?: <T = any, R = T>(data: T) => R | Promise<R>;
-  /**
-   * when error in response.body, example: {code: 0, message: 'error message'}
-   * throw error to handler with `Promise.reject(error)`
-   * @param response
-   * @returns
-   */
-  serializerResponse?: <T = any, R = T>(response: T) => R | Promise<R>;
-  /**
-   * error catch handler
-   */
-  handler?: (error: any) => Promise<any>;
-};
-
-/**
- * loading handler,
- * @return unloading handler
- */
-export type LoadingHandler = () => () => void;
-
-/**
- * loading options
- */
-export type LoadingOptions = {
-  /**
-   * delay (ms)
-   * @default 260
-   */
-  delay?: number;
-  /**
-   * custom loading handler
-   */
-  handler?: LoadingHandler;
-};
-
-/**
- * retry options
- */
-export type RetryOptions = {
-  /**
-   * max retry count
-   * @default 3
-   */
-  maxCount?: number;
-  /**
-   * enabled retry delay (formula(2 ^ count - 1 / 2) * 1000 ms)
-   * @default true
-   */
-  delay?: boolean;
-  /**
-   * customized retry condition
-   * @default (error) => error.message === 'Network Error'
-   */
-  validateError?: (error: Error) => boolean;
-};
-
-export interface RequestCustomConfig {
-  /**
-   * enable catch error
-   * or catch error by Promise.catch locally
-   * @default false
-   */
-  catchError?: boolean;
-  /**
-   * enable loading
-   * or custom loading handler/options
-   * @default false
-   */
-  loading?: boolean | LoadingHandler | Required<LoadingOptions>;
-  /**
-   * loading text
-   */
-  loadingText?: string;
-  /**
-   * enable retry
-   * or custom retry options
-   * @default false
-   */
-  retry?: boolean | RetryOptions;
-}
+export interface RequestCustomConfig {}
 
 /**
  * plugin options

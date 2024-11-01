@@ -1,3 +1,5 @@
+import queryString, { type StringifyOptions } from 'query-string';
+
 // Types
 import type {
   FetchClient,
@@ -16,6 +18,21 @@ const REQUEST_HEADERS: Record<RequestType, Record<string, any>> = {
   form: { 'Content-Type': 'application/x-www-form-urlencoded' },
   json: { 'Content-Type': 'application/json;charset=utf-8' },
 };
+
+/**
+ * serializer request data
+ * @param data request data
+ * @param requestType request type
+ * @param options stringify options for form request
+ */
+export function defaultDataSerializer(data: any, requestType: RequestType, options?: StringifyOptions): any {
+  switch (requestType) {
+    case 'form':
+      return typeof data === 'string' ? data : queryString.stringify(data, options);
+    default:
+      return data;
+  }
+}
 
 /**
  * format request path
@@ -155,7 +172,7 @@ function transfromToRequest(
   id?: string | Symbol,
 ): RequestDefinition<MethodUrl> {
   return (config: Partial<RequestConfig> = {}) => {
-    let { requestType, ...requestConfig } = config;
+    let { requestType, dataSerializer, ...requestConfig } = config;
 
     // method url 置换
     let methodConfig = methodUrl as string | [Partial<RequestConfig>, string];
@@ -170,10 +187,12 @@ function transfromToRequest(
     }
 
     if (Array.isArray(methodConfig)) {
-      const [{ requestType: presetRequestType, ...presetConfig }, methodPath] = methodConfig;
+      const [{ requestType: presetRequestType, dataSerializer: presetDataSerializer, ...presetConfig }, methodPath] =
+        methodConfig;
       // 最终的 config 优先，通过 typedUrl 预定义的 config 其次
       requestConfig = { ...presetConfig, ...requestConfig };
       requestType = requestType ?? presetRequestType;
+      dataSerializer = dataSerializer ?? presetDataSerializer;
       methodConfig = methodPath;
     }
 
@@ -189,11 +208,17 @@ function transfromToRequest(
     requestConfig.url = url;
     requestConfig.method = method as Method;
 
+    if (!requestType) requestType = 'json';
+    if (!dataSerializer) dataSerializer = defaultDataSerializer;
+
     // headers 默认值设置
     requestConfig.headers = {
-      ...(REQUEST_HEADERS[requestType || 'json'] || {}),
+      ...(REQUEST_HEADERS[requestType] || {}),
       ...(requestConfig.headers || {}),
     };
+
+    // serializer data
+    requestConfig.data = dataSerializer(requestConfig.data, requestType);
 
     // 标记为通过 registApi 注册
     requestConfig._registId = id;
