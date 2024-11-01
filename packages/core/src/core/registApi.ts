@@ -25,13 +25,22 @@ const REQUEST_HEADERS: Record<RequestType, Record<string, any>> = {
  * @param requestType request type
  * @param options stringify options for form request
  */
-export function defaultDataSerializer(data: any, requestType: RequestType, options?: StringifyOptions): any {
+function defaultDataSerializer(data: any, requestType: RequestType, options?: StringifyOptions): any {
   switch (requestType) {
     case 'form':
       return typeof data === 'string' ? data : queryString.stringify(data, options);
     default:
       return data;
   }
+}
+
+/**
+ * form data serializer
+ * @param data request data
+ * @param options stringify options
+ */
+export function formDataSerializer(data: any, options?: StringifyOptions): string {
+  return defaultDataSerializer(data, 'form', options);
 }
 
 /**
@@ -72,7 +81,7 @@ export function typedUrl<R = any, P extends Record<string, any> = any, D = any>(
  * @returns template literals function
  */
 export function typedUrl<R = any, P extends Record<string, any> = any, D = any>(
-  config: Partial<RequestConfig>,
+  config: Partial<RequestConfig<D>>,
 ): (strings: TemplateStringsArray, ...keys: Array<string | Function>) => MethodUrlFn<R, P, D>;
 export function typedUrl<R, P extends Record<string, any>, D>(
   configOrStrings: Partial<RequestConfig> | TemplateStringsArray,

@@ -48,7 +48,7 @@ export interface RequestConfig<D = any> {
    * @param data request data
    * @param requestType  request type
    */
-  dataSerializer?: <T = any, R = T>(data: T, requestType: RequestType, options?: StringifyOptions) => R;
+  dataSerializer?: (data: D, requestType: RequestType, options?: StringifyOptions) => any;
 }
 
 /**

@@ -1,1 +1,1 @@
-export { registApi, typedUrl, defaultDataSerializer as dataSerializer } from './registApi';
+export { registApi, typedUrl, formDataSerializer } from './registApi';
