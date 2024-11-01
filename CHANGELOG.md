@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/aceHubert/ace-fetch/compare/v0.5.5...v0.6.0) (2024-11-01)
+
+### Features
+
+- add dataSerialize in settings ([210b688](https://github.com/aceHubert/ace-fetch/commit/210b688f7ba7ac485789d79598700236dbb2b57e))
+
 ## [0.5.5](https://github.com/aceHubert/ace-fetch/compare/v0.5.4...v0.5.5) (2024-10-31)
 
 ### Bug Fixes

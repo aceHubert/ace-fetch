@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/aceHubert/ace-fetch/compare/v0.5.5...v0.6.0) (2024-11-01)
+
+**Note:** Version bump only for package @ace-fetch/uni-app
+
 ## [0.5.5](https://github.com/aceHubert/ace-fetch/compare/v0.5.4...v0.5.5) (2024-10-31)
 
 **Note:** Version bump only for package @ace-fetch/uni-app

@@ -1,6 +1,6 @@
 {
   "name": "@ace-fetch/graphql",
-  "version": "0.5.4",
+  "version": "0.6.0",
   "author": "Hubert<yi.xiang@live.com>",
   "description": "Fetch Provider.",
   "main": "lib/index.js",
