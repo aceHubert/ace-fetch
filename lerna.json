@@ -20,7 +20,7 @@
       "message": "chore(release): 😊 publish"
     }
   },
-  "version": "0.6.1",
+  "version": "0.6.2",
   "changelog": {
     "repo": "aceHubert/ace-fetch",
     "labels": {

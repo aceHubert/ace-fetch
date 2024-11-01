@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.2](https://github.com/aceHubert/ace-fetch/compare/v0.6.1...v0.6.2) (2024-11-01)
+
+### Performance Improvements
+
+- type change & export form data serializer ([4305737](https://github.com/aceHubert/ace-fetch/commit/4305737c090a2eac45a2bd7fca19e87806fb3973))
+
 ## [0.6.1](https://github.com/aceHubert/ace-fetch/compare/v0.6.0...v0.6.1) (2024-11-01)
 
 ### Bug Fixes

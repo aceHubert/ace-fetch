@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.6.2](https://github.com/aceHubert/ace-fetch/compare/v0.6.1...v0.6.2) (2024-11-01)
+
+**Note:** Version bump only for package @ace-fetch/vue
+
 ## [0.6.1](https://github.com/aceHubert/ace-fetch/compare/v0.6.0...v0.6.1) (2024-11-01)
 
 **Note:** Version bump only for package @ace-fetch/vue
