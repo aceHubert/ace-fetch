@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.1](https://github.com/aceHubert/ace-fetch/compare/v0.7.0...v0.7.1) (2024-11-22)
+
+### Bug Fixes
+
+- loading handler in package axios ([ad81ab0](https://github.com/aceHubert/ace-fetch/commit/ad81ab0cf8b7d3c90702e317e62f1f5583eb2dd6))
+
 # [0.7.0](https://github.com/aceHubert/ace-fetch/compare/v0.6.2...v0.7.0) (2024-11-22)
 
 **Note:** Version bump only for package @ace-fetch/axios
