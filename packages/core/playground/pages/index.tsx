@@ -3,6 +3,7 @@ import { userApi, User } from '../apis/index';
 
 export default defineComponent({
   name: 'Playground',
+
   setup() {
     const userRef = ref<User | null>(null);
     const usersRef = ref<User[]>([]);

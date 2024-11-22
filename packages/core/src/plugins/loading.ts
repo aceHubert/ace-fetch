@@ -1,11 +1,29 @@
 // Types
 import type { PluginDefinition, RegistApi, Request } from '../types';
 
+interface ReturnTypeLoading {
+  /**
+   * show loading handler
+   * @returns hide loading handler
+   */
+  (): () => void;
+}
+
+interface StatusTypeLoading {
+  /**
+   * @param loading loading status
+   * @param text loading text
+   */
+  (loading: boolean, text?: string): void;
+}
+
 /**
- * loading handler,
- * @return unloading handler
+ * loading handler, show loading status according to the status or return hide loading handler
+ * @param loading loading status
+ * @param text loading text
+ * @returns hide loading handler
  */
-export type LoadingHandler = () => () => void;
+export type LoadingHandler = ReturnTypeLoading | StatusTypeLoading;
 
 export type LoadingOptions = {
   /**
@@ -33,6 +51,7 @@ export function registLoading(request: Request, options: LoadingOptions): Reques
   const curOptions = { ...defaultOptions, ...options };
   return (config) => {
     const loading = config?.loading;
+    const text = config?.loadingText;
     let delay = curOptions.delay || 0;
     let showLoading = curOptions.handler;
     // 如果有本地设置
@@ -44,6 +63,15 @@ export function registLoading(request: Request, options: LoadingOptions): Reques
         showLoading = loading.handler;
       }
     }
+
+    if (showLoading && showLoading.length > 0) {
+      const setLoading = showLoading as StatusTypeLoading;
+      showLoading = () => {
+        setLoading(true, text);
+        return () => setLoading(false);
+      };
+    }
+
     const requestPromise = request(config);
     const delaySymbol = typeof Symbol === 'function' && !!Symbol.for ? Symbol('__LOADING__') : '__LOADING__';
     const delayPromise = new Promise((resolve) => setTimeout(() => resolve(delaySymbol), delay!));
@@ -51,7 +79,7 @@ export function registLoading(request: Request, options: LoadingOptions): Reques
     // loading 设置为true 或本地定义时并且loading 函数被设置时启动
     if (!!loading && showLoading) {
       Promise.race([requestPromise, delayPromise]).then((result) => {
-        result === delaySymbol && (closeLoading = showLoading?.());
+        result === delaySymbol && (closeLoading = (showLoading as ReturnTypeLoading)?.());
       });
     }
     return requestPromise
