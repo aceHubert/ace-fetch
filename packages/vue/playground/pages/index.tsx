@@ -1,12 +1,12 @@
 import { defineComponent, ref, unref, onMounted } from 'vue-demi';
-import { getActiveFetch } from '@ace-fetch/vue';
+import { getActiveFetch, toRefLoading } from '@ace-fetch/vue';
 import { useUserApi, User } from '../apis/useUserApi';
 
 export default defineComponent({
   name: 'Playground',
-  mounted(){
+  mounted() {
     // fetch instance mount on current app instance
-    console.log(this.$afetch)
+    console.log(this.$afetch);
   },
   setup() {
     const fetch = getActiveFetch();
@@ -15,6 +15,8 @@ export default defineComponent({
     const userRef = ref<User | null>(null);
     const usersRef = ref<User[]>([]);
     const newUserRef = ref<Partial<Omit<User, 'id'>>>({});
+
+    const loading = ref(false);
 
     const getUsers = () => {
       userApi.getUsers().then(({ data }) => {
@@ -33,6 +35,7 @@ export default defineComponent({
         userApi
           .addUser({
             data: newUserRef.value,
+            loading: toRefLoading(loading),
           })
           .then(({ data }) => {
             userRef.value = data;

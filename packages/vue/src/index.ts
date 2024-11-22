@@ -6,4 +6,5 @@ warn(coreVersion === version, `"@ace-fetch/core" version mismatch, expected ${ve
 
 export { version };
 export * from './core';
+export * from './helpers';
 export * from './types';
