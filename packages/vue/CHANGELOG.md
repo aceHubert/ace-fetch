@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/aceHubert/ace-fetch/compare/v0.6.2...v0.7.0) (2024-11-22)
+
+### Features
+
+- add ref type to loading handler function ([167d3d0](https://github.com/aceHubert/ace-fetch/commit/167d3d0f8e8270ed585ae3b90b203f0e07c1af03))
+
 ## [0.6.2](https://github.com/aceHubert/ace-fetch/compare/v0.6.1...v0.6.2) (2024-11-01)
 
 **Note:** Version bump only for package @ace-fetch/vue

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/aceHubert/ace-fetch/compare/v0.6.2...v0.7.0) (2024-11-22)
+
+### Features
+
+- add loading status from function param ([9f692f6](https://github.com/aceHubert/ace-fetch/commit/9f692f6c2db08fb0f8ec532a08f817ac481e4e8c))
+
 ## [0.6.2](https://github.com/aceHubert/ace-fetch/compare/v0.6.1...v0.6.2) (2024-11-01)
 
 ### Performance Improvements
