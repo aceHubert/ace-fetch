@@ -14,15 +14,31 @@ const defaultOptions: LoadingOptions = {
   handler: undefined,
 };
 
-function startLoading(config: AxiosRequestConfig, handler: LoadingHandler, delay: number) {
+function startLoading(
+  config: AxiosRequestConfig,
+  handler: LoadingHandler,
+  loadingText: string | undefined,
+  delay: number,
+) {
+  let showLoading: () => () => void;
+  if (handler.length > 0) {
+    const setLoading = handler;
+    showLoading = () => {
+      setLoading(true, loadingText);
+      return () => setLoading(false);
+    };
+  } else {
+    showLoading = handler as () => () => void;
+  }
+
   if (delay > 0) {
     // delay
     setTimeout(() => {
       // response 已经返回， handler 不执行
-      config[StopLoadingFnSymbol] !== ResponseFinishedSymbol && (config[StopLoadingFnSymbol] = handler());
+      config[StopLoadingFnSymbol] !== ResponseFinishedSymbol && (config[StopLoadingFnSymbol] = showLoading());
     }, delay);
   } else {
-    config[StopLoadingFnSymbol] = handler();
+    config[StopLoadingFnSymbol] = showLoading();
   }
 }
 
@@ -47,21 +63,21 @@ export function applyLoading(axiosInstance: AxiosInstance, options: LoadingOptio
   const curOptions = { ...defaultOptions, ...options };
 
   axiosInstance.interceptors.request.use((config) => {
-    const { loading } = config;
+    const { loading, loadingText } = config;
     let delay = curOptions.delay || 0;
-    let loadingFn = curOptions.handler;
+    let showLoading = curOptions.handler;
     // 如果有本地设置
     if (loading && typeof loading !== 'boolean') {
       if (typeof loading === 'function') {
-        loadingFn = loading;
+        showLoading = loading;
       } else {
         loading.delay !== void 0 && (delay = loading.delay);
-        loadingFn = loading.handler;
+        showLoading = loading.handler;
       }
     }
     // loading 设置为true 或本地定义时并且loading 函数被设置时启动
-    if (!!loading && loadingFn) {
-      startLoading(config, loadingFn, delay);
+    if (!!loading && showLoading) {
+      startLoading(config, showLoading, loadingText, delay);
     }
     return config;
   }, undefined);
