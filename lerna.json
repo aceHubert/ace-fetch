@@ -8,10 +8,12 @@
       "gitReset": true,
       "allowBranch": ["master", "next"],
       "ignoreChanges": [
+        "*/package.json",
+        "*/.*",
+        "*/*.config.js",
         "**/CHANGELOG.md",
         "**/node_modules/**",
         "**/playground/**",
-        "**/package.json",
         "**/*.md",
         "**/test/**",
         "**/dev/**",
