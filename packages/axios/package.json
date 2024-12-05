@@ -1,6 +1,6 @@
 {
   "name": "@ace-fetch/axios",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "author": "Hubert<yi.xiang@live.com>",
   "description": "axios adapter for @ace-fetch/core.",
   "main": "lib/index.js",
@@ -65,7 +65,7 @@
     "url": "https://github.com/aceHubert/ace-fetch/issues"
   },
   "dependencies": {
-    "@ace-fetch/core": "^0.7.0",
+    "@ace-fetch/core": "^0.7.2",
     "@ace-util/core": "^0.3.0"
   },
   "devDependencies": {
