@@ -9,8 +9,6 @@
       "allowBranch": ["master", "next"],
       "ignoreChanges": [
         "*/package.json",
-        "*/.*",
-        "*/*.config.js",
         "**/CHANGELOG.md",
         "**/node_modules/**",
         "**/playground/**",
