@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.1](https://github.com/aceHubert/ace-fetch/compare/v0.8.0...v0.8.1) (2024-12-11)
+
+### Performance Improvements
+
+- export common function from core in vue ([0719adb](https://github.com/aceHubert/ace-fetch/commit/0719adb634d2b7b15e95a91ce0081658fc050cf8))
+
 # [0.8.0](https://github.com/aceHubert/ace-fetch/compare/v0.7.2...v0.8.0) (2024-12-11)
 
 ### Features
