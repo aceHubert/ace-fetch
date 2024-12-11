@@ -8,3 +8,5 @@ export { version };
 export * from './core';
 export * from './helpers';
 export * from './types';
+
+export { typedUrl, formDataSerializer } from '@ace-fetch/core';
