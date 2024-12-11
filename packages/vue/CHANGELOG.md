@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.8.0](https://github.com/aceHubert/ace-fetch/compare/v0.7.2...v0.8.0) (2024-12-11)
+
+### Features
+
+- functional prefix support ([a1ae107](https://github.com/aceHubert/ace-fetch/commit/a1ae107f7cdfceeb80976e10e2f17ad33c9274e9))
+
 ## [0.7.2](https://github.com/aceHubert/ace-fetch/compare/v0.7.1...v0.7.2) (2024-12-05)
 
 **Note:** Version bump only for package @ace-fetch/vue
