@@ -1,6 +1,6 @@
 {
   "name": "@ace-fetch/axios",
-  "version": "0.8.0",
+  "version": "0.8.2",
   "author": "Hubert<yi.xiang@live.com>",
   "description": "axios adapter for @ace-fetch/core.",
   "main": "lib/index.js",

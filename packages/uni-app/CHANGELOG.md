@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.8.2](https://github.com/aceHubert/ace-fetch/compare/v0.8.1...v0.8.2) (2024-12-11)
+
+### Bug Fixes
+
+- version compare without patch ([061232f](https://github.com/aceHubert/ace-fetch/commit/061232f4879c1dc062e27eaac28e42c9f2e1614f))
+
 # [0.8.0](https://github.com/aceHubert/ace-fetch/compare/v0.7.2...v0.8.0) (2024-12-11)
 
 **Note:** Version bump only for package @ace-fetch/uni-app
