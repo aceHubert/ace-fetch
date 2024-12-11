@@ -167,3 +167,4 @@ export type RegistApi<C extends Record<string, MethodUrl> = Record<string, Metho
 
 type ValueOf<T> = T[keyof T];
 export type Request = ValueOf<RegistApi>;
+export type Prefix = string | ((path: string) => string);

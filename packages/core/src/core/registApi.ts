@@ -1,8 +1,10 @@
+import { trailingSlash } from '@ace-util/core';
 import queryString, { type StringifyOptions } from 'query-string';
 
 // Types
 import type {
   FetchClient,
+  Prefix,
   Method,
   MethodUrl,
   MethodUrlWithConfig,
@@ -111,7 +113,7 @@ export function typedUrl<R, P extends Record<string, any>, D>(
 export function registApi<C extends Record<string, MethodUrl>>(
   client: FetchClient,
   definition: C,
-  prefix?: string,
+  prefix?: Prefix,
 ): RegistApi<C>;
 /**
  * register api for plugin use
@@ -125,13 +127,13 @@ export function registApi<C extends Record<string, MethodUrl>>(
 export function registApi<C extends Record<string, MethodUrl>>(
   client: FetchClient,
   definition: C,
-  prefix?: string,
+  prefix?: Prefix,
   id?: string | Symbol,
 ): RegistApi<C>;
 export function registApi<C extends Record<string, MethodUrl>>(
   client: FetchClient,
   definition: C,
-  prefix?: string,
+  prefix?: Prefix,
   id?: string | Symbol,
 ): RegistApi<C> {
   const result = {} as RegistApi<C>;
@@ -177,7 +179,7 @@ function quoteProxy(obj: Record<string, any>, keys: string[] = []) {
 function transfromToRequest(
   request: (config: RequestConfig) => FetchPromise,
   methodUrl: MethodUrl,
-  prefix = '',
+  prefix?: Prefix,
   id?: string | Symbol,
 ): RequestDefinition<MethodUrl> {
   return (config: Partial<RequestConfig> = {}) => {
@@ -212,8 +214,8 @@ function transfromToRequest(
     const methodConfigArr = methodConfig.split(' ');
     const [method, urlPath] = methodConfigArr.length === 1 ? ['get', methodConfig] : methodConfigArr;
     // 拼接 prefix (处理prefix 末尾以及 urlPath 开始 / 的重复)
-    const url =
-      (prefix.endsWith('/') ? prefix : `${prefix}/`) + (urlPath.startsWith('/') ? urlPath.substring(1) : urlPath);
+    const prefixStr = typeof prefix === 'function' ? prefix(urlPath) : prefix || '';
+    const url = trailingSlash(prefixStr) + (urlPath.startsWith('/') ? urlPath.substring(1) : urlPath);
     requestConfig.url = url;
     requestConfig.method = method as Method;
 

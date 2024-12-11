@@ -1,5 +1,5 @@
 import type { App } from 'vue-demi';
-import type { MethodUrl, RegistApi, FetchClient, PluginDefinition } from '@ace-fetch/core';
+import type { Prefix, MethodUrl, RegistApi, FetchClient, PluginDefinition } from '@ace-fetch/core';
 
 type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
 type XOR<T, U> = T | U extends object ? (Without<T, U> & U) | (Without<U, T> & T) : T | U;
@@ -42,7 +42,7 @@ export type DefineRegistApiOptions<C extends Record<string, MethodUrl>> = {
   /**
    * Base URL
    */
-  prefix?: string;
+  prefix?: Prefix;
   /**
    * Plugins apply current registApis
    */
