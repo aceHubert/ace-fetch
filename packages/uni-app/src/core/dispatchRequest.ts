@@ -1,4 +1,6 @@
 import URLSearchParams from '@ungap/url-search-params';
+import { UniFetchError } from './UniFetchError';
+import { transformData } from './transformData';
 
 // Types
 import type { RequestConfig, Response } from '@ace-fetch/core';
@@ -6,19 +8,6 @@ import type { RequestConfig, Response } from '@ace-fetch/core';
 declare let wx: UniApp.Uni;
 
 const app = uni || wx;
-
-export class UniFetchError extends Error {
-  config: RequestConfig;
-  response?: Response<any>;
-
-  constructor(message: string, config: RequestConfig, response?: Response<any>) {
-    super(message);
-    this.config = config;
-    this.response = response;
-  }
-}
-
-export const isUniFetchError = (error: any): error is UniFetchError => error instanceof UniFetchError;
 
 // @ts-ignore
 export function dispatchRequest({ url, method, params, headers, ...rest }: RequestConfig): Promise<Response<any>> {
@@ -33,6 +22,8 @@ export function dispatchRequest({ url, method, params, headers, ...rest }: Reque
       ...rest,
     };
 
+    transformData.call(config, config.transformRequest);
+
     app.request({
       ...config,
       success: ({ statusCode, errMsg, ...resp }) => {
@@ -43,6 +34,8 @@ export function dispatchRequest({ url, method, params, headers, ...rest }: Reque
           headers: resp.header,
           config,
         };
+        response.data = transformData.call(config, config.transformResponse, response);
+
         if (statusCode >= 400) {
           reject(new UniFetchError(errMsg || `Http error: ${statusCode}`, config, response));
         } else {
