@@ -17,7 +17,7 @@
         "**/dev/**",
         "**/src/version.ts"
       ],
-      "message": "chore(release): 😊 publish"
+      "message": "chore(release): 😊 publish %s"
     }
   },
   "version": "0.9.0",
