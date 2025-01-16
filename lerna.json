@@ -17,10 +17,10 @@
         "**/dev/**",
         "**/src/version.ts"
       ],
-      "message": "chore(release): 😊 publish"
+      "message": "chore(release): 😊 publish %s"
     }
   },
-  "version": "0.8.2",
+  "version": "0.9.0",
   "changelog": {
     "repo": "aceHubert/ace-fetch",
     "labels": {
