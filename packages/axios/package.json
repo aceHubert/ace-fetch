@@ -47,7 +47,7 @@
     "build:cjs": "run -T tsc --project tsconfig.build.json",
     "build:esm": "run -T tsc --project tsconfig.build.json --module es2015 --outDir esm",
     "build:umd": "run -T rollup --config --bundleConfigAsCjs",
-   "lint": "run -T eslint . --cache --report-unused-disable-directives --ignore-path=../../.eslintignore",
+    "lint": "run -T eslint . --cache --report-unused-disable-directives --ignore-path=../../.eslintignore",
     "lint:fix": "run -T eslint . --cache --fix --ignore-path=../../.eslintignore"
   },
   "license": "MIT",
