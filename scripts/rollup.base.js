@@ -17,6 +17,8 @@ const presets = (filename, targetName, externals) => {
   const _externals = {
     vue: 'Vue',
     'vue-demi': 'VueDemi',
+    react: 'React',
+    'react-dom': 'ReactDOM',
     '@vue/composition-api': 'VueCompositionAPI',
     '@ace-fetch/core': 'AceFetch.Core',
     '@ace-fetch/axios': 'AceFetch.Axios',
