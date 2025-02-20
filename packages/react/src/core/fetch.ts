@@ -1,6 +1,5 @@
-import { useContext, useMemo } from 'react';
 import { registApi, debug } from '@ace-fetch/core';
-import { FetchContext, setActiveFetch, activeFetch } from './context';
+import { setActiveFetch, getContextFetch, activeFetch } from './context';
 
 // Types
 import type { MethodUrl, RegistApi } from '@ace-fetch/core';
@@ -42,60 +41,58 @@ export function defineRegistApi<C extends Record<string, MethodUrl>>(
   let optionsForPlugin: DefineRegistApiOptionsInPlugin<C> = { ...options };
 
   function useRegistApi(fetch?: Fetch) {
-    fetch = fetch || useContext(FetchContext).fetch || undefined;
-    return useMemo(() => {
-      if (fetch) setActiveFetch(fetch);
+    fetch = fetch || getContextFetch() || undefined;
+    if (fetch) setActiveFetch(fetch);
 
-      if (debug && !activeFetch) {
-        throw new Error(
-          `getActiveFetch was called with no active Fetch. Did you forget to use FetchProvider?\n` +
-            `\tconst { Provider: FetchProvider } = createFetch()\n` +
-            `\t<FetchProvider><Component /></FetchProvider>\n` +
-            `This will fail in production.`,
+    if (debug && !activeFetch) {
+      throw new Error(
+        `getActiveFetch was called with no active Fetch. Did you forget to use FetchProvider?\n` +
+          `\tconst { Provider: FetchProvider } = createFetch()\n` +
+          `\t<FetchProvider><Component /></FetchProvider>\n` +
+          `This will fail in production.`,
+      );
+    }
+
+    fetch = activeFetch!;
+
+    if (!fetch._r.has(id)) {
+      // creating regist apis register it to 'fetch._r'
+      // FIXME: Build type error
+      const registApis = registApi(fetch.client, options.definition || options.apis!, options.prefix as any, id);
+
+      // apply all local plugins
+      options.plugins?.forEach((extender) => {
+        Object.assign(
+          registApis,
+          extender({
+            id,
+            registApis,
+            fetch: fetch!,
+            options: optionsForPlugin,
+          }),
         );
-      }
+      });
 
-      fetch = activeFetch!;
-
-      if (!fetch._r.has(id)) {
-        // creating regist apis register it to 'fetch._r'
-        // FIXME: Build type error
-        const registApis = registApi(fetch.client, options.definition || options.apis!, options.prefix as any, id);
-
-        // apply all local plugins
-        options.plugins?.forEach((extender) => {
-          Object.assign(
+      // apply all global plugins
+      fetch._p.forEach((extender) => {
+        Object.assign(
+          registApis,
+          extender({
+            id,
             registApis,
-            extender({
-              id,
-              registApis,
-              fetch: fetch!,
-              options: optionsForPlugin,
-            }),
-          );
-        });
+            fetch: fetch!,
+            options: optionsForPlugin,
+          }),
+        );
+      });
 
-        // apply all global plugins
-        fetch._p.forEach((extender) => {
-          Object.assign(
-            registApis,
-            extender({
-              id,
-              registApis,
-              fetch: fetch!,
-              options: optionsForPlugin,
-            }),
-          );
-        });
+      fetch._r.set(id, registApis);
+    }
 
-        fetch._r.set(id, registApis);
-      }
+    // get from store
+    const apis: RegistApi<C> = fetch._r.get(id)!;
 
-      // get from store
-      const apis: RegistApi<C> = fetch._r.get(id)!;
-
-      return apis;
-    }, [fetch]);
+    return apis;
   }
   return useRegistApi;
 }

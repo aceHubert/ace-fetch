@@ -22,6 +22,18 @@ export const FetchContext = createContext<FetchConsumerProps>({});
 export const setActiveFetch = (fetch: Fetch | undefined) => (activeFetch = fetch);
 
 /**
+ * get fetch from context
+ */
+export const getContextFetch = () => {
+  try {
+    // would throw an error if call outside of the body of a function component
+    return useContext(FetchContext).fetch;
+  } catch {
+    return;
+  }
+};
+
+/**
  * Get the currently active fetch if there is any.
  */
-export const getActiveFetch = () => useContext(FetchContext).fetch || activeFetch;
+export const getActiveFetch = () => getContextFetch() || activeFetch;
