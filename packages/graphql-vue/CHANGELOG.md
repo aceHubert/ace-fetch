@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.2](https://github.com/aceHubert/ace-fetch/compare/v0.9.1...v0.9.2) (2025-02-20)
+
+### Performance Improvements
+
+- package script change ([#22](https://github.com/aceHubert/ace-fetch/issues/22)) ([ec0fbe2](https://github.com/aceHubert/ace-fetch/commit/ec0fbe22bf17fba7bc67e4e6ea24bb2bf421592a))
+
 ## [0.9.1](https://github.com/aceHubert/ace-fetch/compare/v0.9.0...v0.9.1) (2025-01-16)
 
 **Note:** Version bump only for package @ace-fetch/graphql-vue

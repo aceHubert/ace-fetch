@@ -1,6 +1,6 @@
 {
   "name": "@ace-fetch/core",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "author": "Hubert<yi.xiang@live.com>",
   "description": "Fetch Provider.",
   "main": "lib/index.js",
