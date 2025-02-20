@@ -53,12 +53,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ace-fetch/playground@workspace:packages/playground":
-  version: 0.0.0-use.local
-  resolution: "@ace-fetch/playground@workspace:packages/playground"
-  languageName: unknown
-  linkType: soft
-
 "@ace-fetch/react@workspace:packages/react":
   version: 0.0.0-use.local
   resolution: "@ace-fetch/react@workspace:packages/react"
