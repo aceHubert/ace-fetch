@@ -1,6 +1,6 @@
 {
   "name": "@ace-fetch/react",
-  "version": "0.9.3-alpha.1",
+  "version": "0.9.3",
   "author": "Hubert<yi.xiang@live.com>",
   "description": "react adapter for @ace-fetch/core.",
   "main": "lib/index.js",

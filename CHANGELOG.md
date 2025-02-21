@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.9.3](https://github.com/aceHubert/ace-fetch/compare/v0.9.2...v0.9.3) (2025-02-21)
+
+### Features
+
+- react support ([#23](https://github.com/aceHubert/ace-fetch/issues/23)) ([dedb57f](https://github.com/aceHubert/ace-fetch/commit/dedb57f1f4d714b4d8453db85629b64a5ae67bf7))
+
 ## [0.9.3-alpha.1](https://github.com/aceHubert/ace-fetch/compare/v0.9.3-alpha.0...v0.9.3-alpha.1) (2025-02-20)
 
 ### Bug Fixes
