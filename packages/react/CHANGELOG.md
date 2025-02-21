@@ -1,0 +1,16 @@
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+## [0.9.3-alpha.1](https://github.com/aceHubert/ace-fetch/compare/v0.9.3-alpha.0...v0.9.3-alpha.1) (2025-02-20)
+
+### Bug Fixes
+
+- reack hook 在组件外使用问题 ([00430af](https://github.com/aceHubert/ace-fetch/commit/00430af98440c2c1d08cdbd0da72e749330e6e49))
+
+## [0.9.3-alpha.0](https://github.com/aceHubert/ace-fetch/compare/v0.9.2...v0.9.3-alpha.0) (2025-02-20)
+
+### Features
+
+- add react support ([ec9e444](https://github.com/aceHubert/ace-fetch/commit/ec9e444cd863038517271dfc62b5e964beb03d64))
