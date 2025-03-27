@@ -1,3 +1,5 @@
+import { isPromise } from '@ace-util/core';
+
 // Types
 import type { PluginDefinition, RegistApi, Request } from '../types';
 
@@ -50,6 +52,11 @@ const defaultOptions: LoadingOptions = {
 export function registLoading(request: Request, options: LoadingOptions): Request {
   const curOptions = { ...defaultOptions, ...options };
   return (config) => {
+    const requestPromise = request(config);
+    if (!isPromise(requestPromise)) {
+      return requestPromise;
+    }
+
     const loading = config?.loading;
     const text = config?.loadingText;
     let delay = curOptions.delay || 0;
@@ -64,6 +71,7 @@ export function registLoading(request: Request, options: LoadingOptions): Reques
       }
     }
 
+    // 转换为ReturnTypeLoading
     if (showLoading && showLoading.length > 0) {
       const setLoading = showLoading as StatusTypeLoading;
       showLoading = () => {
@@ -72,7 +80,6 @@ export function registLoading(request: Request, options: LoadingOptions): Reques
       };
     }
 
-    const requestPromise = request(config);
     const delaySymbol = typeof Symbol === 'function' && !!Symbol.for ? Symbol('__LOADING__') : '__LOADING__';
     const delayPromise = new Promise((resolve) => setTimeout(() => resolve(delaySymbol), delay!));
     let closeLoading: (() => void) | undefined;
