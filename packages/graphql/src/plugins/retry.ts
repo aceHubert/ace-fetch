@@ -2,7 +2,28 @@ import { isPromise, warn } from '@ace-util/core';
 import { debug } from '../env';
 
 // Types
-import type { PluginDefinition, RegistGraphql, RequestCustomConfig, RetryOptions } from '../types';
+import type { PluginDefinition, RegistGraphql, RequestCustomConfig } from '../types';
+
+/**
+ * retry options
+ */
+export type RetryOptions = {
+  /**
+   * max retry count
+   * @default 3
+   */
+  maxCount?: number;
+  /**
+   * enabled retry delay (formula(2 ^ count - 1 / 2) * 1000 ms)
+   * @default true
+   */
+  delay?: boolean;
+  /**
+   * customized retry condition
+   * @default (error) => error.message === 'Network Error'
+   */
+  validateError?: (error: Error) => boolean;
+};
 
 export const RetryCountSymbol = '__RetryCount__';
 
@@ -94,11 +115,17 @@ export const createRetryPlugin: PluginDefinition<RetryOptions> =
     }, {} as RegistGraphql);
   };
 
-/**
- * @internal
- */
 declare module '../types' {
-  interface RequestCustomConfig {
+  export interface RequestCustomConfig {
+    /**
+     * @internal
+     */
     [RetryCountSymbol]?: number;
+    /**
+     * enable retry
+     * or custom retry options
+     * @default false
+     */
+    retry?: boolean | RetryOptions;
   }
 }

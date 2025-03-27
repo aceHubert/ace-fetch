@@ -1,3 +1,3 @@
-export { registCatchError, createCatchErrorPlugin } from './catchError';
-export { registLoading, createLoadingPlugin } from './loading';
-export { registRetry, createRetryPlugin } from './retry';
+export * from './catchError';
+export * from './loading';
+export * from './retry';

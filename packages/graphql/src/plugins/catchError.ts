@@ -2,7 +2,17 @@ import { isPromise, warn } from '@ace-util/core';
 import { debug } from '../env';
 
 // Types
-import type { PluginDefinition, RegistGraphql, RequestCustomConfig, CatchErrorOptions } from '../types';
+import type { PluginDefinition, RegistGraphql, RequestCustomConfig } from '../types';
+
+/**
+ * catch error options
+ */
+export type CatchErrorOptions = {
+  /**
+   * error catch handler
+   */
+  handler?: (error: any) => Promise<any>;
+};
 
 const defaultOptions: CatchErrorOptions = {
   handler: (error) => {
@@ -61,3 +71,14 @@ export const createCatchErrorPlugin: PluginDefinition<CatchErrorOptions> =
       return prev;
     }, {} as RegistGraphql);
   };
+
+declare module '../types' {
+  export interface RequestCustomConfig {
+    /**
+     * enable catch error
+     * or catch error by Promise.catch locally
+     * @default false
+     */
+    catchError?: boolean;
+  }
+}
