@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/aceHubert/ace-fetch/compare/v0.10.0...v0.11.0) (2025-03-27)
+
+### Features
+
+- graphql loading plugin add StatusTypeLoading ([#25](https://github.com/aceHubert/ace-fetch/issues/25)) ([9ca5df3](https://github.com/aceHubert/ace-fetch/commit/9ca5df397458a8c0020377587bb0f244a147ff69))
+
 # [0.10.0](https://github.com/aceHubert/ace-fetch/compare/v0.9.3...v0.10.0) (2025-03-27)
 
 **Note:** Version bump only for package @ace-fetch/graphql
