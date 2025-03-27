@@ -93,11 +93,11 @@ export function applyLoading(axiosInstance: AxiosInstance, options: LoadingOptio
       return response;
     },
     (error) => {
-      if (!isAxiosError(error)) {
-        warn(!debug, `loading needs "AxiosError.config", please do not chage format from interceptors return!`);
-        return Promise.reject(error);
-      } else if (isCancelError(error)) {
+      if (isCancelError(error)) {
         warn(!debug, `loading won't handle axios cancel error!`);
+        return Promise.reject(error);
+      } else if (!isAxiosError(error)) {
+        warn(!debug, `loading needs "AxiosError.config", please do not chage format from interceptors return!`);
         return Promise.reject(error);
       }
 
@@ -108,7 +108,7 @@ export function applyLoading(axiosInstance: AxiosInstance, options: LoadingOptio
         `,
         );
 
-      stopLoading(error.config);
+      stopLoading(error.config!);
 
       return Promise.reject(error);
     },

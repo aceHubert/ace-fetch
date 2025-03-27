@@ -41,11 +41,11 @@ function catchErrorHandler(
 export function applyCatchError(axiosInstance: AxiosInstance, options: CatchErrorOptions = {}) {
   const curOptions = { ...defaultOptions, ...options };
   axiosInstance.interceptors.request.use(undefined, (error) => {
-    if (!isAxiosError(error)) {
-      warn(!debug, `catchError needs "AxiosError.config", please do not chage format from interceptors return!`);
-      return Promise.reject(error);
-    } else if (isCancelError(error)) {
+    if (isCancelError(error)) {
       warn(!debug, `catchError won't handle axios cancel error!`);
+      return Promise.reject(error);
+    } else if (!isAxiosError(error)) {
+      warn(!debug, `catchError needs "AxiosError.config", please do not chage format from interceptors return!`);
       return Promise.reject(error);
     }
 
@@ -91,11 +91,11 @@ export function applyCatchError(axiosInstance: AxiosInstance, options: CatchErro
       return response;
     },
     (error) => {
-      if (!isAxiosError(error)) {
-        warn(!debug, `catchError needs "AxiosError.config", please do not chage format from interceptors return!`);
-        return Promise.reject(error);
-      } else if (isCancelError(error)) {
+      if (isCancelError(error)) {
         warn(!debug, `catchError won't handle axios cancel error!`);
+        return Promise.reject(error);
+      } else if (!isAxiosError(error)) {
+        warn(!debug, `catchError needs "AxiosError.config", please do not chage format from interceptors return!`);
         return Promise.reject(error);
       }
 

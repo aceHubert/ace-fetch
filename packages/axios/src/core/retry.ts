@@ -72,11 +72,12 @@ function retryHandler(
 export function applyRetry(axiosInstance: AxiosInstance, options: RetryOptions) {
   const curOptions = { ...defaultOptions, ...options };
   axiosInstance.interceptors.request.use(undefined, (error) => {
+    if (isCancelError(error)) {
+      warn(!debug, `retry won't handle axios cancel error!`);
+      return Promise.reject(error);
+    }
     if (!isAxiosError(error)) {
       warn(!debug, `retry needs "AxiosError.config", please do not chage format from interceptors return!`);
-      return Promise.reject(error);
-    } else if (isCancelError(error)) {
-      warn(!debug, `retry won't handle axios cancel error!`);
       return Promise.reject(error);
     }
 
@@ -89,11 +90,11 @@ export function applyRetry(axiosInstance: AxiosInstance, options: RetryOptions) 
     return retryHandler(error, error.config, curOptions, axiosInstance);
   });
   axiosInstance.interceptors.response.use(undefined, (error) => {
-    if (!isAxiosError(error)) {
-      warn(!debug, `retry needs "AxiosError.config", please do not chage format from interceptors return!`);
-      return Promise.reject(error);
-    } else if (isCancelError(error)) {
+    if (isCancelError(error)) {
       warn(!debug, `retry won't handle axios cancel error!`);
+      return Promise.reject(error);
+    } else if (!isAxiosError(error)) {
+      warn(!debug, `retry needs "AxiosError.config", please do not chage format from interceptors return!`);
       return Promise.reject(error);
     }
 
