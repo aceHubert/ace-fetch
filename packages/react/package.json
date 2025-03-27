@@ -1,6 +1,6 @@
 {
   "name": "@ace-fetch/react",
-  "version": "0.9.3",
+  "version": "0.10.0",
   "author": "Hubert<yi.xiang@live.com>",
   "description": "react adapter for @ace-fetch/core.",
   "main": "lib/index.js",
@@ -59,7 +59,7 @@
     "url": "https://github.com/aceHubert/ace-fetch/issues"
   },
   "dependencies": {
-    "@ace-fetch/core": "^0.9.1",
+    "@ace-fetch/core": "^0.10.0",
     "@ace-util/core": "^0.3.0"
   },
   "devDependencies": {

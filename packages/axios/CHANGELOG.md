@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://github.com/aceHubert/ace-fetch/compare/v0.9.3...v0.10.0) (2025-03-27)
+
+### Bug Fixes
+
+- axios upgrade type error ([34c300f](https://github.com/aceHubert/ace-fetch/commit/34c300f791b94e4a019dc52691c817eb5a9fee60))
+
 ## [0.9.2](https://github.com/aceHubert/ace-fetch/compare/v0.9.1...v0.9.2) (2025-02-20)
 
 ### Performance Improvements

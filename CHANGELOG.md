@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://github.com/aceHubert/ace-fetch/compare/v0.9.3...v0.10.0) (2025-03-27)
+
+### Bug Fixes
+
+- axios upgrade type error ([34c300f](https://github.com/aceHubert/ace-fetch/commit/34c300f791b94e4a019dc52691c817eb5a9fee60))
+
+### Features
+
+- add dify-compatible-plugin ([f496ab9](https://github.com/aceHubert/ace-fetch/commit/f496ab9dee8fc22e062475797dc38c76ffa93e85))
+
 ## [0.9.3](https://github.com/aceHubert/ace-fetch/compare/v0.9.2...v0.9.3) (2025-02-21)
 
 ### Features
