@@ -64,7 +64,7 @@
     "vue-demi": "^*"
   },
   "devDependencies": {
-    "axios": "^0.27.1"
+    "axios": "^1.0.0"
   },
   "publishConfig": {
     "access": "public"

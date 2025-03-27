@@ -7,6 +7,6 @@ export default defineNuxtConfig({
     transpile: ['@ace-fetch/core'],
   },
   alias: {
-    '@ace-fetch/core': fileURLToPath(new URL('..//src', import.meta.url)),
+    '@ace-fetch/core': fileURLToPath(new URL('../src', import.meta.url)),
   },
 });
