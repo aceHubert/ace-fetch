@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.1](https://github.com/aceHubert/ace-fetch/compare/v0.11.0...v0.11.1) (2025-03-28)
+
+### Bug Fixes
+
+- absolute Url & dynamic Url support ([#26](https://github.com/aceHubert/ace-fetch/issues/26)) ([fe5019a](https://github.com/aceHubert/ace-fetch/commit/fe5019a8518035f6abd0c94edabc6483ef241e40))
+
 # [0.11.0](https://github.com/aceHubert/ace-fetch/compare/v0.10.0...v0.11.0) (2025-03-27)
 
 ### Features

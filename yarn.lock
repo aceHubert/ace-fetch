@@ -9,7 +9,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ace-fetch/axios@workspace:packages/axios"
   dependencies:
-    "@ace-fetch/core": ^0.11.0
+    "@ace-fetch/core": ^0.11.1
     "@ace-util/core": ^0.3.0
     axios: ^1.0.0
   peerDependencies:
@@ -17,7 +17,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ace-fetch/core@^0.11.0, @ace-fetch/core@workspace:packages/core":
+"@ace-fetch/core@^0.11.1, @ace-fetch/core@workspace:packages/core":
   version: 0.0.0-use.local
   resolution: "@ace-fetch/core@workspace:packages/core"
   dependencies:
@@ -31,7 +31,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ace-fetch/dify-compatible-plugin@workspace:packages/dify-compatible-plugin"
   dependencies:
-    "@ace-fetch/core": ^0.11.0
+    "@ace-fetch/core": ^0.11.1
     "@ace-util/core": ^0.3.0
     axios: ^1.0.0
   languageName: unknown
@@ -67,7 +67,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ace-fetch/react@workspace:packages/react"
   dependencies:
-    "@ace-fetch/core": ^0.11.0
+    "@ace-fetch/core": ^0.11.1
     "@ace-util/core": ^0.3.0
     "@types/react": ^18.2.0
     "@types/react-dom": ^18.2.0
@@ -82,7 +82,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ace-fetch/uni-app@workspace:packages/uni-app"
   dependencies:
-    "@ace-fetch/core": ^0.11.0
+    "@ace-fetch/core": ^0.11.1
     "@ace-util/core": ^0.3.0
     "@dcloudio/types": ^3.4.8
     "@ungap/url-search-params": ^0.2.2
@@ -93,7 +93,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ace-fetch/vue@workspace:packages/vue"
   dependencies:
-    "@ace-fetch/core": ^0.11.0
+    "@ace-fetch/core": ^0.11.1
     "@ace-util/core": ^0.3.0
     axios: ^1.0.0
     vue-demi: ^*
