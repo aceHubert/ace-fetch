@@ -22,6 +22,9 @@ export const userApi = loadingPlugin({
       getUser: typedUrl<User, { id: string | number }>`/user/${(params: { id: string }) => params.id}`,
       addUser: typedUrl<User, any, Partial<Omit<User, 'id'>>>`post /user`,
       delUser: typedUrl<never, { id: string | number }>`delete /user/${'id'}`,
+      dynamic: typedUrl<any, { id: string | number }>({
+        method: 'get',
+      })``,
     },
     'http://localhost:7009',
   ),

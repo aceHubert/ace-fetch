@@ -44,6 +44,14 @@ export default defineComponent({
 
     onMounted(() => {
       getUsers();
+
+      userApi
+        .dynamic({
+          url: '/user/1',
+        })
+        .then((res) => {
+          console.log('dynamic', res);
+        });
     });
 
     return () => {
