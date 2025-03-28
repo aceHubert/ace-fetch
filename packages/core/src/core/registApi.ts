@@ -1,4 +1,4 @@
-import { trailingSlash } from '@ace-util/core';
+import { trailingSlash, isAbsoluteUrl } from '@ace-util/core';
 import queryString, { type StringifyOptions } from 'query-string';
 
 // Types
@@ -207,17 +207,30 @@ function transfromToRequest(
       methodConfig = methodPath;
     }
 
-    // 置换 方法 和 地址
-    // example:
-    //  'getUser' => 'get getUser'
-    //  'post updateUser'
-    const methodConfigArr = methodConfig.split(' ');
-    const [method, urlPath] = methodConfigArr.length === 1 ? ['get', methodConfig] : methodConfigArr;
-    // 拼接 prefix (处理prefix 末尾以及 urlPath 开始 / 的重复)
-    const prefixStr = typeof prefix === 'function' ? prefix(urlPath) : prefix || '';
-    const url = trailingSlash(prefixStr) + (urlPath.startsWith('/') ? urlPath.substring(1) : urlPath);
-    requestConfig.url = url;
-    requestConfig.method = method as Method;
+    if (methodConfig) {
+      // Fixed url
+      // example:
+      //  'getUser' => 'get getUser'
+      //  'post updateUser'
+      const methodConfigArr = methodConfig.split(' ');
+      const [method, urlPath] = methodConfigArr.length === 1 ? ['get', methodConfig] : methodConfigArr;
+      // 拼接 prefix (处理prefix 末尾以及 urlPath 开始 / 的重复)
+      const prefixStr = typeof prefix === 'function' ? prefix(urlPath) : prefix || '';
+      const url = isAbsoluteUrl(urlPath)
+        ? urlPath
+        : trailingSlash(prefixStr) + (urlPath.startsWith('/') ? urlPath.substring(1) : urlPath);
+      requestConfig.url = url;
+      requestConfig.method = method as Method;
+    } else if (config.url) {
+      // Dynamic url
+      const urlPath = config.url;
+      // 拼接 prefix (处理prefix 末尾以及 urlPath 开始 / 的重复)
+      const prefixStr = typeof prefix === 'function' ? prefix(urlPath) : prefix || '';
+      const url = isAbsoluteUrl(urlPath)
+        ? urlPath
+        : trailingSlash(prefixStr) + (urlPath.startsWith('/') ? urlPath.substring(1) : urlPath);
+      requestConfig.url = url;
+    }
 
     if (!requestType) requestType = 'json';
     if (!dataSerializer) dataSerializer = defaultDataSerializer;
