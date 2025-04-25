@@ -8,6 +8,7 @@ export interface UniFetchResponseTransformer {
 
 declare module '@ace-fetch/core' {
   interface RequestConfig {
+    paramsSerializer?: (params: any) => string;
     transformRequest?: UniFetchRequestTransformer | UniFetchRequestTransformer[];
     transformResponse?: UniFetchResponseTransformer | UniFetchResponseTransformer[];
   }
