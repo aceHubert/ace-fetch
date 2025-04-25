@@ -58,7 +58,7 @@
     "url": "https://github.com/aceHubert/ace-fetch/issues"
   },
   "dependencies": {
-    "@ace-util/core": "^0.3.0",
+    "@ace-util/core": "^0.7.0",
     "query-string": "^7.0.0"
   },
   "devDependencies": {
