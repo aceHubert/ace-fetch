@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.2](https://github.com/aceHubert/ace-fetch/compare/v0.11.1...v0.11.2) (2025-04-25)
+
+### Bug Fixes
+
+- url-search-params format error ([#27](https://github.com/aceHubert/ace-fetch/issues/27)) ([7413adb](https://github.com/aceHubert/ace-fetch/commit/7413adb9b4d9b655d2d10fb8b0cc644266205122))
+
 # [0.11.0](https://github.com/aceHubert/ace-fetch/compare/v0.10.0...v0.11.0) (2025-03-27)
 
 ### Features
