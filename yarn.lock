@@ -10,7 +10,7 @@ __metadata:
   resolution: "@ace-fetch/axios@workspace:packages/axios"
   dependencies:
     "@ace-fetch/core": ^0.11.1
-    "@ace-util/core": ^0.3.0
+    "@ace-util/core": ^0.7.0
     axios: ^1.0.0
   peerDependencies:
     axios: ^1.0.0
@@ -21,7 +21,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ace-fetch/core@workspace:packages/core"
   dependencies:
-    "@ace-util/core": ^0.3.0
+    "@ace-util/core": ^0.7.0
     axios: ^1.0.0
     query-string: ^7.0.0
   languageName: unknown
@@ -32,7 +32,7 @@ __metadata:
   resolution: "@ace-fetch/dify-compatible-plugin@workspace:packages/dify-compatible-plugin"
   dependencies:
     "@ace-fetch/core": ^0.11.1
-    "@ace-util/core": ^0.3.0
+    "@ace-util/core": ^0.7.0
     axios: ^1.0.0
   languageName: unknown
   linkType: soft
@@ -42,7 +42,7 @@ __metadata:
   resolution: "@ace-fetch/graphql-vue@workspace:packages/graphql-vue"
   dependencies:
     "@ace-fetch/graphql": ^0.11.0
-    "@ace-util/core": ^0.3.0
+    "@ace-util/core": ^0.7.0
     "@apollo/client": ^3.0.0
     graphql: ^16.9.0
     graphql-tag: ^2.12.6
@@ -54,7 +54,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ace-fetch/graphql@workspace:packages/graphql"
   dependencies:
-    "@ace-util/core": ^0.3.0
+    "@ace-util/core": ^0.7.0
     "@apollo/client": ^3.0.0
     graphql: ^16.9.0
     ts-invariant: ^0.10.3
@@ -68,7 +68,7 @@ __metadata:
   resolution: "@ace-fetch/react@workspace:packages/react"
   dependencies:
     "@ace-fetch/core": ^0.11.1
-    "@ace-util/core": ^0.3.0
+    "@ace-util/core": ^0.7.0
     "@types/react": ^18.2.0
     "@types/react-dom": ^18.2.0
     react: ^18.2.0
@@ -83,9 +83,8 @@ __metadata:
   resolution: "@ace-fetch/uni-app@workspace:packages/uni-app"
   dependencies:
     "@ace-fetch/core": ^0.11.1
-    "@ace-util/core": ^0.3.0
+    "@ace-util/core": ^0.7.0
     "@dcloudio/types": ^3.4.8
-    "@ungap/url-search-params": ^0.2.2
   languageName: unknown
   linkType: soft
 
@@ -94,18 +93,26 @@ __metadata:
   resolution: "@ace-fetch/vue@workspace:packages/vue"
   dependencies:
     "@ace-fetch/core": ^0.11.1
-    "@ace-util/core": ^0.3.0
+    "@ace-util/core": ^0.7.0
     axios: ^1.0.0
     vue-demi: ^*
   languageName: unknown
   linkType: soft
 
-"@ace-util/core@npm:^0.3.0":
-  version: 0.3.1
-  resolution: "@ace-util/core@npm:0.3.1"
+"@ace-util/core@npm:^0.7.0":
+  version: 0.7.1
+  resolution: "@ace-util/core@npm:0.7.1"
   dependencies:
+    "@ace-util/enquire": ^0.1.0
     lodash.get: ^4.4.2
-  checksum: d983bbb7d278ebc24238062835a32e89834ca839ba199ff9156a2cdf9b4619a707c768f7d1477899ddb1852d8aecaaad4b32273a37d3c259126d932fe93c5f54
+  checksum: 3ef2c923c1e5dc9cbdf9d96b11b1ae860ab1fab3f2ec66b9829c7728546a7940e5de335ff59ccfce1c139154f0c640b46550bb2103b36c93afcaedfa3c675442
+  languageName: node
+  linkType: hard
+
+"@ace-util/enquire@npm:^0.1.0":
+  version: 0.1.0
+  resolution: "@ace-util/enquire@npm:0.1.0"
+  checksum: c352d00c10f44bd3d143fc553b6e967edac31405c2b937862b08c2a6b6f9b87fe1961915bc671a25207e8a02d75cb5f4a67656189602ecf918c74ee7f0cfd25b
   languageName: node
   linkType: hard
 
@@ -5133,13 +5140,6 @@ __metadata:
     "@typescript-eslint/types": 5.62.0
     eslint-visitor-keys: ^3.3.0
   checksum: 976b05d103fe8335bef5c93ad3f76d781e3ce50329c0243ee0f00c0fcfb186c81df50e64bfdd34970148113f8ade90887f53e3c4938183afba830b4ba8e30a35
-  languageName: node
-  linkType: hard
-
-"@ungap/url-search-params@npm:^0.2.2":
-  version: 0.2.2
-  resolution: "@ungap/url-search-params@npm:0.2.2"
-  checksum: 779506cca3d36bc291e4e6eb0484e8bd87186cbe5bb6a6d37f17a866c47069d8a3a20b9331ef0a5c96f26b4db8210cf26c6e5a1f4a6c8be3be13a619e82cb93c
   languageName: node
   linkType: hard
 

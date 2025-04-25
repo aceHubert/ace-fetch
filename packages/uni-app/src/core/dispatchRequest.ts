@@ -1,5 +1,5 @@
-import URLSearchParams from '@ungap/url-search-params';
 import { UniFetchError } from './UniFetchError';
+import { buildURL } from './buildUrl';
 import { transformData } from './transformData';
 
 // Types
@@ -10,13 +10,10 @@ declare let wx: UniApp.Uni;
 const app = uni || wx;
 
 // @ts-ignore
-export function dispatchRequest({ url, method, params, headers, ...rest }: RequestConfig): Promise<Response<any>> {
+export function dispatchRequest({ url, method, headers, params, ...rest }: RequestConfig): Promise<Response<any>> {
   return new Promise((resolove, reject) => {
-    if (params && Object.keys(params).length > 0) {
-      url += (url!.indexOf('?') >= 0 ? '&' : '?') + new URLSearchParams(params).toString();
-    }
     const config = {
-      url: url!,
+      url: buildURL(url, params, rest.paramsSerializer),
       method: method as UniApp.RequestOptions['method'],
       header: headers,
       ...rest,
