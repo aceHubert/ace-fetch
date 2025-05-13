@@ -1,6 +1,6 @@
 {
   "name": "@ace-fetch/uni-app",
-  "version": "0.11.2",
+  "version": "0.11.3",
   "author": "Hubert<yi.xiang@live.com>",
   "description": "uni-app adapter for @ace-fetch/core.",
   "main": "lib/index.js",
