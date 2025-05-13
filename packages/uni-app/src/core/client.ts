@@ -144,3 +144,7 @@ export class UinAppClient implements FetchClient {
     throw new Error('Method not implemented.');
   }
 }
+
+declare module '@ace-fetch/core' {
+  export interface RequestConfig extends UniNamespace.RequestOptions {}
+}
