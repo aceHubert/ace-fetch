@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.4](https://github.com/aceHubert/ace-fetch/compare/v0.11.3...v0.11.4) (2025-08-06)
+
+### Bug Fixes
+
+- **core:** 优化 loading 延迟展示逻辑 ([#29](https://github.com/aceHubert/ace-fetch/issues/29)) ([7a3a474](https://github.com/aceHubert/ace-fetch/commit/7a3a47419b7d2a81fc2c9e465640170468e1f585))
+
 ## [0.11.2](https://github.com/aceHubert/ace-fetch/compare/v0.11.1...v0.11.2) (2025-04-25)
 
 ### Bug Fixes
