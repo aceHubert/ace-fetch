@@ -81,7 +81,11 @@ export function registLoading(request: Request, options: LoadingOptions): Reques
     }
 
     const delaySymbol = typeof Symbol === 'function' && !!Symbol.for ? Symbol('__LOADING__') : '__LOADING__';
-    const delayPromise = new Promise((resolve) => setTimeout(() => resolve(delaySymbol), delay!));
+    const delayPromise = new Promise((resolve) =>
+      // 如果 delay 大于 0，则使用 setTimeout 模拟延迟, 否则直接 resolve
+      // TIP: setTimeout(()=>{}, 0) is a macro task; even with 0ms, it causes delayed assignment response
+      delay! > 0 ? setTimeout(() => resolve(delaySymbol), delay!) : resolve(delaySymbol),
+    );
     let closeLoading: (() => void) | undefined;
     // loading 设置为true 或本地定义时并且loading 函数被设置时启动
     if (!!loading && showLoading) {
